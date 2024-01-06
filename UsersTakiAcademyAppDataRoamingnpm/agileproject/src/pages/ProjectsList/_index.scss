@@ -1,0 +1,18 @@
+.projects-list-page {
+  display: flex;
+  flex-direction: column;
+  align-items: self-start;
+  margin: 2rem;
+  gap: 2rem;
+  .project-page-title {
+    color: #1c1c1c;
+    // font-family: Gothic A1 !important;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  .project-page-list {
+    width: 100%;
+  }
+}
