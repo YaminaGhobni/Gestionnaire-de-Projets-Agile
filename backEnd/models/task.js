@@ -15,7 +15,7 @@ priority :{
 },
 status:{
   type:String,
-  enum: ['Pending','To Do','in Progress', 'Completed', 'Tested', 'Done'], 
+  enum: ['Pending','To Do','In Progress', 'Completed', 'Tested', 'Done'], 
 
 },
 description:{
