@@ -7,6 +7,7 @@ import Column from './Column';
 import KanModal from './Modal';
 import AddColumn from './AddColumn';
 import { columnsRawData } from './Data';
+import Iconify from '../iconify';
 
 const Kanban = () => {
   const [openColModal, setOpenColModal] = useState(false);
@@ -153,7 +154,6 @@ const Kanban = () => {
           columnId={columns.length + 1}
         />
         <Button
-          //   startIcon={<AddIcon />}
           sx={{
             color: '#000',
             backgroundColor: '#eee',
@@ -168,6 +168,7 @@ const Kanban = () => {
             setOpenColModal(true);
           }}
         >
+          <Iconify icon="ic:baseline-plus" />
           Add New Column
         </Button>
         <Box>
