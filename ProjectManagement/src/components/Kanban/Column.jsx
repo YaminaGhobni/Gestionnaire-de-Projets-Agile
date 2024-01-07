@@ -102,7 +102,7 @@ const Column = ({ columnData, openModal, removeTask, removeColumn, editTask }) =
           }}
           onClick={() => openModal(columnData)}
           disabled={columnData.taskIds.length >= 5}
-          //   startIcon={<AddIcon />}
+          startIcon={<Iconify icon="ic:baseline-plus" />}
         >
           New
         </Button>
