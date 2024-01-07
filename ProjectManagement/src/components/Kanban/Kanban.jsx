@@ -12,9 +12,7 @@ import Iconify from '../iconify';
 const Kanban = () => {
   const [openColModal, setOpenColModal] = useState(false);
   const [open, setOpen] = useState(false);
-  const [columns, setColumns] = useState(
-    JSON.parse(window.localStorage.getItem('columns')) || columnsRawData
-  );
+  const [columns, setColumns] = useState(columnsRawData);
   const [modal, setModal] = useState(false);
 
   const onDragEnd = (result) => {
