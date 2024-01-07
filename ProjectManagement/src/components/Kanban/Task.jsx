@@ -91,7 +91,6 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
             //   ...sx,
           }}
         >
-          {renderInfo}
           {isEditing ? (
             <EditForm
               color={color}
@@ -161,6 +160,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
               </Box>
             </>
           )}
+          {renderInfo}
         </Paper>
       )}
     </Draggable>

@@ -11,7 +11,7 @@ import Iconify from '../iconify';
 
 const Column = ({ columnData, openModal, removeTask, removeColumn, editTask }) => {
   const columnTitle = `${columnData.name} (${columnData.taskIds.length})`;
-  
+
   return (
     <Box sx={{ width: '500px' }}>
       <Box
@@ -87,27 +87,26 @@ const Column = ({ columnData, openModal, removeTask, removeColumn, editTask }) =
                 />
               ))}
               {provided.placeholder}
+              <Box sx={{ pt: 2 }}>
+                <Button
+                  sx={{
+                    color: '#aaa',
+                    textTransform: 'none',
+                    ':hover': {
+                      backgroundColor: 'transparent',
+                    },
+                  }}
+                  onClick={() => openModal(columnData)}
+                  disabled={columnData.taskIds.length >= 5}
+                  startIcon={<Iconify icon="ic:baseline-plus" />}
+                >
+                  New
+                </Button>
+              </Box>
             </Paper>
           </Scrollbar>
         )}
       </Droppable>
-
-      <Box sx={{ pt: 2 }}>
-        <Button
-          sx={{
-            color: '#aaa',
-            textTransform: 'none',
-            ':hover': {
-              backgroundColor: 'transparent',
-            },
-          }}
-          onClick={() => openModal(columnData)}
-          disabled={columnData.taskIds.length >= 5}
-          startIcon={<Iconify icon="ic:baseline-plus" />}
-        >
-          New
-        </Button>
-      </Box>
     </Box>
   );
 };
