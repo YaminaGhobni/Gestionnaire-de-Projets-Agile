@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
-import { Box, Button } from '@mui/material';
+import { Box, Button, Container, Stack } from '@mui/material';
 
 import Column from './Column';
 import KanModal from './Modal';
 import AddColumn from './AddColumn';
 import { columnsRawData } from './Data';
+import Scrollbar from '../scrollbar';
 // import AddIcon from "@mui/icons-material/Add";
 
 const Kanban = () => {
@@ -141,56 +142,73 @@ const Kanban = () => {
   }, [columns]);
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <AddColumn
-        openModal={openColModal}
-        closeModal={closeColModal}
-        addColumn={addColumn}
-        columnId={columns.length + 1}
-      />
-      <Button
-        //   startIcon={<AddIcon />}
-        sx={{
-          color: '#000',
-          backgroundColor: '#eee',
-          textTransform: 'none',
-          ':hover': {
-            backgroundColor: '#ddd',
-          },
-          py: 1,
-          my: 2,
-        }}
-        onClick={() => {
-          setOpenColModal(true);
-        }}
-      >
-        Add New Column
-      </Button>
-      <Box>
-        {modal && (
-          <KanModal openModal={open} closeModal={closeModal} addTask={addTask} columnData={modal} />
-        )}
-        <Box
+    <Container
+      // maxWidth={false}
+      sx={{
+        height: 1,
+      }}
+    >
+      <DragDropContext onDragEnd={onDragEnd}>
+        <AddColumn
+          openModal={openColModal}
+          closeModal={closeColModal}
+          addColumn={addColumn}
+          columnId={columns.length + 1}
+        />
+        <Button
+          //   startIcon={<AddIcon />}
           sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            pt: 4,
-            justifyContent: 'flex-start',
+            color: '#000',
+            backgroundColor: '#eee',
+            textTransform: 'none',
+            ':hover': {
+              backgroundColor: '#ddd',
+            },
+            py: 1,
+            my: 2,
+          }}
+          onClick={() => {
+            setOpenColModal(true);
           }}
         >
-          {columns.map((c) => (
-            <Column
-              columnData={c}
-              key={c.name}
-              openModal={openModal}
-              removeTask={removeTask}
-              removeColumn={removeColumn}
-              editTask={editTask}
+          Add New Column
+        </Button>
+        <Box>
+          {modal && (
+            <KanModal
+              openModal={open}
+              closeModal={closeModal}
+              addTask={addTask}
+              columnData={modal}
             />
-          ))}
+          )}
+
+          <Stack
+            //    ref={provided.innerRef}
+            // {...provided.droppableProps}
+            spacing={2}
+            direction="row"
+            //  alignItems="flex-start"
+            sx={{
+              p: 1,
+              height: 1,
+              maxWidth: '100%',
+            }}
+          >
+            {columns.map((c) => (
+              <Column
+                columnData={c}
+                key={c.name}
+                openModal={openModal}
+                removeTask={removeTask}
+                removeColumn={removeColumn}
+                editTask={editTask}
+              />
+            ))}
+          </Stack>
         </Box>
-      </Box>
-    </DragDropContext>
+      </DragDropContext>
+    </Container>
   );
 };
 

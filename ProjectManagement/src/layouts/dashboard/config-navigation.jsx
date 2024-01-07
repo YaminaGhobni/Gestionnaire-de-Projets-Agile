@@ -1,3 +1,4 @@
+import Iconify from 'src/components/iconify';
 import SvgColor from 'src/components/svg-color';
 
 // ----------------------------------------------------------------------
@@ -16,6 +17,11 @@ const navConfig = [
     title: 'user',
     path: '/user',
     icon: icon('ic_user'),
+  },
+  {
+    title: 'kanban',
+    path: '/kanban',
+    icon:  <Iconify icon="ph:kanban-bold" />,
   },
   {
     title: 'login',

@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { Draggable } from 'react-beautiful-dnd';
 
-import { Box, Card, Menu, Button, MenuItem } from '@mui/material';
-import useToggle from './useToggleState';
+import { Box, Paper, Card, Menu, Button, MenuItem } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+
 import EditForm from './EditForm';
+import useToggle from './useToggleState';
+import { bgBlur } from '../../theme/css';
 // import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 // import EditIcon from '@mui/icons-material/Edit';
 // import DeleteIcon from '@mui/icons-material/Delete';
@@ -20,34 +22,38 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const theme = useTheme();
+
   return (
     <Draggable draggableId={`${task.id}`} index={index}>
       {(provided, snapshot) => (
-        <Card
+        <Paper
+          ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          ref={provided.innerRef}
+          // onClick={openDetails.onTrue}
           sx={{
-            ':hover': {
-              backgroundColor: '#eee',
+            width: 1,
+            borderRadius: 1.5,
+            overflow: 'hidden',
+            position: 'relative',
+            p: 2,
+            bgcolor: 'background.default',
+            boxShadow: theme.customShadows.z1,
+            '&:hover': {
+              boxShadow: theme.customShadows.z20,
             },
-
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            borderRadius: '6px',
-            border: '1px solid #ddd',
-            userSelect: 'none',
-            px: 2,
-            py: 0.8,
-            margin: '0 0 4px 0',
-            minHeight: '20px',
-            backgroundColor: '#fff',
-            opacity: snapshot.isDragging ? 0.3 : 1,
-            transition: 'opacity 7s linear',
-            boxShadow: '0px 9px 22px -8px rgba(0,0,0,0.1)',
-            color: 'black',
+            // ...(openDetails.value && {
+            //   boxShadow: theme.customShadows.z20,
+            // }),
+            ...(snapshot.isDragging && {
+              boxShadow: theme.customShadows.z20,
+              ...bgBlur({
+                opacity: 0.48,
+                color: theme.palette.background.default,
+              }),
+            }),
+            //   ...sx,
           }}
         >
           {isEditing ? (
@@ -119,7 +125,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
               </Box>
             </>
           )}
-        </Card>
+        </Paper>
       )}
     </Draggable>
   );

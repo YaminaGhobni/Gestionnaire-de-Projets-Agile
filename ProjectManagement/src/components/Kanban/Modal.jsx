@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { v4 as uuid } from 'uuid';
-import useInputState from './useInputState';
 
 import { Box, Modal, Button, TextField } from '@mui/material';
+
+import useInputState from './useInputState';
+
 
 const KanModal = ({ openModal, closeModal, addTask, columnData }) => {
   const [text, handleChangeText] = useInputState('');
