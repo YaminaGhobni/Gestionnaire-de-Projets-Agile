@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 
-import { Box, Paper, Card, Menu, Button, MenuItem } from '@mui/material';
+import { Box, Paper, Card, Stack, Menu, Button, MenuItem, Avatar } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import AvatarGroup, { avatarGroupClasses } from '@mui/material/AvatarGroup';
 
 import EditForm from './EditForm';
 import useToggle from './useToggleState';
 import { bgBlur } from '../../theme/css';
+import Iconify from '../iconify';
 // import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 // import EditIcon from '@mui/icons-material/Edit';
 // import DeleteIcon from '@mui/icons-material/Delete';
@@ -23,7 +25,40 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
     setAnchorEl(null);
   };
   const theme = useTheme();
+  const renderInfo = (
+    <Stack direction="row" alignItems="center">
+      <Stack
+        flexGrow={1}
+        direction="row"
+        alignItems="center"
+        sx={{
+          typography: 'caption',
+          color: 'text.disabled',
+        }}
+      >
+        <Iconify width={16} icon="solar:chat-round-dots-bold" sx={{ mr: 0.25 }} />
+        <Box component="span" sx={{ mr: 1 }}>
+          {task.comments.length}
+        </Box>
 
+        <Iconify width={16} icon="eva:attach-2-fill" sx={{ mr: 0.25 }} />
+        <Box component="span">{task.attachments.length}</Box>
+      </Stack>
+
+      <AvatarGroup
+        sx={{
+          [`& .${avatarGroupClasses.avatar}`]: {
+            width: 24,
+            height: 24,
+          },
+        }}
+      >
+        {task.assignee.map((user) => (
+          <Avatar key={user.id} alt={user.name} src={user.avatar} />
+        ))}
+      </AvatarGroup>
+    </Stack>
+  );
   return (
     <Draggable draggableId={`${task.id}`} index={index}>
       {(provided, snapshot) => (
@@ -56,6 +91,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
             //   ...sx,
           }}
         >
+          {renderInfo}
           {isEditing ? (
             <EditForm
               color={color}

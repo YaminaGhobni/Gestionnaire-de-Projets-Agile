@@ -10,7 +10,8 @@ import Scrollbar from '../scrollbar';
 import Iconify from '../iconify';
 
 const Column = ({ columnData, openModal, removeTask, removeColumn, editTask }) => {
-  console.log({ columnData });
+  const columnTitle = `${columnData.name} (${columnData.taskIds.length})`;
+  
   return (
     <Box sx={{ width: '500px' }}>
       <Box
@@ -35,7 +36,7 @@ const Column = ({ columnData, openModal, removeTask, removeColumn, editTask }) =
             ml: 1,
           }}
         >
-          {columnData.name} ({columnData.taskIds.length})
+          {columnTitle}
         </Typography>
         <IconButton
           onClick={(e) => {
