@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 import { Box, Button, Container, Stack } from '@mui/material';
 
@@ -7,8 +7,6 @@ import Column from './Column';
 import KanModal from './Modal';
 import AddColumn from './AddColumn';
 import { columnsRawData } from './Data';
-import Scrollbar from '../scrollbar';
-// import AddIcon from "@mui/icons-material/Add";
 
 const Kanban = () => {
   const [openColModal, setOpenColModal] = useState(false);
@@ -143,7 +141,6 @@ const Kanban = () => {
 
   return (
     <Container
-      // maxWidth={false}
       sx={{
         height: 1,
       }}
@@ -184,11 +181,8 @@ const Kanban = () => {
           )}
 
           <Stack
-            //    ref={provided.innerRef}
-            // {...provided.droppableProps}
             spacing={2}
             direction="row"
-            //  alignItems="flex-start"
             sx={{
               p: 1,
               height: 1,

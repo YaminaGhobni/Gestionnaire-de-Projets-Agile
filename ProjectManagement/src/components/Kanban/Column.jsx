@@ -5,9 +5,6 @@ import { Droppable } from 'react-beautiful-dnd';
 import { Box, Paper, Button, Typography, IconButton } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 
-// import AddIcon from '@mui/icons-material/Add';
-// import DeleteIcon from '@mui/icons-material/Delete';
-
 import Task from './Task';
 import Scrollbar from '../scrollbar';
 import Iconify from '../iconify';
