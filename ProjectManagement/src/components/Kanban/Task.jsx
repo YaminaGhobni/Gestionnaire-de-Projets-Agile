@@ -104,8 +104,17 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
                 }}
               >
                 <span>{task.text}</span>
-                <IconButton sx={{ mt: -3 }} onClick={handleClick}>
-                  <Iconify icon="ep:more" />
+                <IconButton
+                  disableRipple
+                  sx={{
+                    mt: -3,
+                    '&.MuiButtonBase-root:hover': {
+                      bgcolor: 'transparent',
+                    },
+                  }}
+                  onClick={handleClick}
+                >
+                  <Iconify icon="ep:more" onClick={handleClick} />
                 </IconButton>
               </Box>
               <Box
