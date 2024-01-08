@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Box, Button, TextField } from '@mui/material';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 import useInputState from './useInputState';
 
@@ -43,7 +45,7 @@ const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText, hand
           onChange={handleChangeTitle}
           sx={{ m: 1 }}
         /> */}
-        <TextField
+        {/* <TextField
           sx={{ m: 1 }}
           type="text"
           value={text}
@@ -54,6 +56,12 @@ const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText, hand
           name="task"
           id="task"
           variant="outlined"
+        /> */}
+        <ReactQuill
+          theme="snow"
+          value={text}
+          modules={{ toolbar: ['bold', 'italic', 'underline', 'strike'] }}
+          //  onChange={handleChangeText}
         />
         <Button
           sx={{
