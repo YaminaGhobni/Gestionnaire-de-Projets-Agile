@@ -10,9 +10,6 @@ import EditForm from './EditForm';
 import useToggle from './useToggleState';
 import { bgBlur } from '../../theme/css';
 import Iconify from '../iconify';
-// import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-// import EditIcon from '@mui/icons-material/Edit';
-// import DeleteIcon from '@mui/icons-material/Delete';
 
 const Task = ({ id, task, color, index, removeTask, editTask }) => {
   const [isEditing, toggle] = useToggle(false);
@@ -66,19 +63,18 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          onClick={handleClick}
+          action={<Iconify icon="ep:more" />}
           sx={{
             width: 1,
             borderRadius: 1.5,
             overflow: 'hidden',
             position: 'relative',
-            p: 2,
+            p: isEditing ? 0 : 2,
             bgcolor: 'background.default',
             boxShadow: theme.customShadows.z1,
             '&:hover': {
               boxShadow: theme.customShadows.z20,
             },
-
             ...(snapshot.isDragging && {
               boxShadow: theme.customShadows.z20,
               ...bgBlur({
@@ -96,18 +92,21 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
               toggle={toggle}
               startTitle={task.title}
               startText={task.text}
+              handleClose={handleClose}
             />
           ) : (
-            <Stack sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <>
               <Box
                 sx={{
                   display: 'flex',
-                  flexDirection: 'column',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
                 }}
               >
-                <div>
-                  <span>{task.title}</span>
-                </div>
+                <span>{task.text}</span>
+                <IconButton sx={{ mt: -3 }} onClick={handleClick}>
+                  <Iconify icon="ep:more" />
+                </IconButton>
               </Box>
               <Box
                 sx={{
@@ -115,9 +114,6 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
                   flexDirection: 'row',
                 }}
               >
-                <IconButton id="basic-button" onClick={handleClick}>
-                  <Iconify icon="ep:more" />
-                </IconButton>
                 <Menu
                   id="basic-menu"
                   anchorEl={anchorEl}
@@ -155,7 +151,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
                   </MenuItem>
                 </Menu>
               </Box>
-            </Stack>
+            </>
           )}
           {renderInfo}
         </Paper>
@@ -167,10 +163,10 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
 export default Task;
 
 Task.propTypes = {
-  id: PropTypes.any,
+  id: PropTypes.number,
   task: PropTypes.any,
-  color: PropTypes.any,
-  index: PropTypes.any,
-  removeTask: PropTypes.any,
-  editTask: PropTypes.any,
+  color: PropTypes.string,
+  index: PropTypes.number,
+  removeTask: PropTypes.bool,
+  editTask: PropTypes.bool,
 };

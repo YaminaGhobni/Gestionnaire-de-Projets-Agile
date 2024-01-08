@@ -32,7 +32,6 @@ const KanModal = ({ openModal, closeModal, addTask, columnData }) => {
     p: 2,
     borderRadius: 4,
     display: 'flex',
-
     justifyContent: 'center',
   };
   return (
@@ -90,8 +89,8 @@ const KanModal = ({ openModal, closeModal, addTask, columnData }) => {
 export default KanModal;
 
 KanModal.propTypes = {
-  openModal: PropTypes.any,
-  closeModal: PropTypes.any,
-  addTask: PropTypes.any,
-  columnData: PropTypes.any,
+  openModal: PropTypes.bool,
+  closeModal: PropTypes.bool,
+  addTask: PropTypes.bool,
+  columnData: PropTypes.bool,
 };

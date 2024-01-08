@@ -5,7 +5,7 @@ import { Box, Button, TextField } from '@mui/material';
 
 import useInputState from './useInputState';
 
-const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText }) => {
+const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText, handleClose }) => {
   const [text, handleChangeText] = useInputState(startText);
   const [title, handleChangeTitle] = useInputState(startTitle);
   return (
@@ -35,14 +35,14 @@ const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText }) =>
           },
         }}
       >
-        <TextField
+        {/* <TextField
           label="Title"
           required
           id="title"
           value={title}
           onChange={handleChangeTitle}
           sx={{ m: 1 }}
-        />
+        /> */}
         <TextField
           sx={{ m: 1 }}
           type="text"
@@ -62,6 +62,7 @@ const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText }) =>
             ':hover': { bgcolor: 'transparent' },
           }}
           type="submit"
+          handleClose={handleClose}
         >
           Save
         </Button>
@@ -79,4 +80,5 @@ EditForm.propTypes = {
   toggle: PropTypes.any,
   startTitle: PropTypes.any,
   startText: PropTypes.any,
+  handleClose: PropTypes.any,
 };
