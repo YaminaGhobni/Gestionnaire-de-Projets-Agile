@@ -18,9 +18,9 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
   const [isEditing, toggle] = useToggle(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -66,7 +66,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          // onClick={openDetails.onTrue}
+          onClick={handleClick}
           sx={{
             width: 1,
             borderRadius: 1.5,
@@ -78,9 +78,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
             '&:hover': {
               boxShadow: theme.customShadows.z20,
             },
-            // ...(openDetails.value && {
-            //   boxShadow: theme.customShadows.z20,
-            // }),
+
             ...(snapshot.isDragging && {
               boxShadow: theme.customShadows.z20,
               ...bgBlur({
