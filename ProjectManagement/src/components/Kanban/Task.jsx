@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 
-import { Box, Paper, Card, Stack, Menu, Button, MenuItem, Avatar } from '@mui/material';
+import { Box, Paper, IconButton, Card, Stack, Menu, Button, MenuItem, Avatar } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import AvatarGroup, { avatarGroupClasses } from '@mui/material/AvatarGroup';
 
@@ -86,7 +86,6 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
                 color: theme.palette.background.default,
               }),
             }),
-            //   ...sx,
           }}
         >
           {isEditing ? (
@@ -99,7 +98,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
               startText={task.text}
             />
           ) : (
-            <>
+            <Stack sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <Box
                 sx={{
                   display: 'flex',
@@ -116,9 +115,9 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
                   flexDirection: 'row',
                 }}
               >
-                {/* <IconButton id="basic-button" onClick={handleClick}>
-                  <MoreHorizIcon />
-                </IconButton> */}
+                <IconButton id="basic-button" onClick={handleClick}>
+                  <Iconify icon="ep:more" />
+                </IconButton>
                 <Menu
                   id="basic-menu"
                   anchorEl={anchorEl}
@@ -130,7 +129,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
                 >
                   <MenuItem onClick={handleClose}>
                     <Button
-                      // startIcon={<EditIcon fontSize="small" />}
+                      startIcon={<Iconify icon="material-symbols:edit" />}
                       onClick={toggle}
                       sx={{
                         bgcolor: 'transparent',
@@ -148,7 +147,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
                         color: '#aaa',
                         ':hover': { bgcolor: 'transparent' },
                       }}
-                      // startIcon={<DeleteIcon fontSize="small" />}
+                      startIcon={<Iconify icon="material-symbols:delete" />}
                       onClick={() => removeTask(task?.id)}
                     >
                       Delete
@@ -156,7 +155,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
                   </MenuItem>
                 </Menu>
               </Box>
-            </>
+            </Stack>
           )}
           {renderInfo}
         </Paper>
