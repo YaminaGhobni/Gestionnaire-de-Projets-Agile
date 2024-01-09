@@ -63,7 +63,6 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          action={<Iconify icon="ep:more" />}
           sx={{
             width: 1,
             borderRadius: 1.5,
@@ -113,7 +112,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
                       bgcolor: 'transparent',
                     },
                   }}
-                  onClick={handleClick}
+                 
                 >
                   <Iconify icon="ep:more" onClick={handleClick} />
                 </IconButton>
