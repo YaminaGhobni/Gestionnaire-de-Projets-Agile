@@ -21,21 +21,23 @@ export const columnsRawData = [
     taskIds: [
       {
         id: uuid(),
+        status: 'low',
         text: 'This is a task description of Learn GraphQL',
         idColumn: 1,
         title: 'Learn GraphQL',
         comments: ['good', 'wowo'],
         assignee: usersWithAvatars,
-        attachments:[] // Assign a user to the task
+        attachments: [], // Assign a user to the task
       },
       {
         id: uuid(),
+        status: 'heigh',
         text: 'New slides for presentation',
         idColumn: 1,
         title: 'Complete the Presentation',
         comments: ['good', 'wowo'],
-        assignee: usersWithAvatars, 
-        attachments:[]// Assign another user to the task
+        assignee: usersWithAvatars,
+        attachments: [], // Assign another user to the task
       },
     ],
   },
@@ -49,10 +51,11 @@ export const columnsRawData = [
         id: uuid(),
         text: 'Blog assets',
         idColumn: 2,
+        status: 'heigh',
         title: 'Finalize Blogs',
         comments: ['good', 'wowo'],
         assignee: usersWithAvatars,
-        attachments:[] // Assign a user to the task
+        attachments: [], // Assign a user to the task
       },
     ],
   },
@@ -64,21 +67,23 @@ export const columnsRawData = [
     taskIds: [
       {
         id: uuid(),
+        status: 'heigh',
         text: 'Change css img',
         idColumn: 3,
         title: 'Meeting with Airtribe',
-        comments:["good","wowo"],
+        comments: ['good', 'wowo'],
         assignee: usersWithAvatars,
-        attachments:[] // Assign a user to the task
+        attachments: [], // Assign a user to the task
       },
       {
         id: uuid(),
         text: 'Meeting',
+        status: 'heigh',
         idColumn: 3,
         title: 'Wash Clothes',
-        comments:["good","wowo"],
+        comments: ['good', 'wowo'],
         assignee: usersWithAvatars,
-        attachments:[] // Assign another user to the task
+        attachments: [], // Assign another user to the task
       },
     ],
   },

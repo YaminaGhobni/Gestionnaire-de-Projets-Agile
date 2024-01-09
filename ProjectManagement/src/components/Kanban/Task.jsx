@@ -10,6 +10,7 @@ import EditForm from './EditForm';
 import useToggle from './useToggleState';
 import { bgBlur } from '../../theme/css';
 import Iconify from '../iconify';
+import Label from '../label';
 
 const Task = ({ id, task, color, index, removeTask, editTask }) => {
   const [isEditing, toggle] = useToggle(false);
@@ -83,6 +84,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
             }),
           }}
         >
+          <Label color={(task.status === 'low' && 'warning') || 'success'}>{task.status}</Label>
           {isEditing ? (
             <EditForm
               color={color}
@@ -112,7 +114,6 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
                       bgcolor: 'transparent',
                     },
                   }}
-                 
                 >
                   <Iconify icon="ep:more" onClick={handleClick} />
                 </IconButton>

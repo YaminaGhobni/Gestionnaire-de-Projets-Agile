@@ -113,9 +113,9 @@ const Column = ({ columnData, openModal, removeTask, removeColumn, editTask }) =
 export default Column;
 
 Column.propTypes = {
-  columnData: PropTypes.any,
-  openModal: PropTypes.any,
-  removeTask: PropTypes.any,
-  removeColumn: PropTypes.any,
-  editTask: PropTypes.any,
+  columnData: PropTypes.string,
+  openModal: PropTypes.bool,
+  removeTask: PropTypes.bool,
+  removeColumn: PropTypes.bool,
+  editTask: PropTypes.bool,
 };
