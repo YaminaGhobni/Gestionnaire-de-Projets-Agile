@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Box, Button, TextField } from '@mui/material';
@@ -8,8 +8,19 @@ import 'react-quill/dist/quill.snow.css';
 import useInputState from './useInputState';
 
 const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText, handleClose }) => {
-  const [text, handleChangeText] = useInputState(startText);
+  const [text, setText] = useState(<p>{startText}</p>);
+  useEffect(() => {
+    setText(startText);
+  }, [startText]);
+
   const [title, handleChangeTitle] = useInputState(startTitle);
+  const onChange = (e) => {
+    setText(e);
+  };
+  const myToolbar = [
+    ['bold', 'italic', 'underline', 'strike'],
+    ['image'], // add image here
+  ];
   return (
     <Box
       sx={{
@@ -60,8 +71,8 @@ const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText, hand
         <ReactQuill
           theme="snow"
           value={text}
-          modules={{ toolbar: ['bold', 'italic', 'underline', 'strike'] }}
-          //  onChange={handleChangeText}
+          modules={{ toolbar: myToolbar }}
+          onChange={onChange}
         />
         <Button
           sx={{

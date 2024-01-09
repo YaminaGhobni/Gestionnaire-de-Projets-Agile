@@ -103,7 +103,8 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
                   justifyContent: 'space-between',
                 }}
               >
-                <span>{task.text}</span>
+                <span dangerouslySetInnerHTML={{ __html: task.text }} />
+
                 <IconButton
                   disableRipple
                   sx={{
