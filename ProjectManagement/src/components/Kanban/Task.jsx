@@ -5,6 +5,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { Box, Paper, IconButton, Card, Stack, Menu, Button, MenuItem, Avatar } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import AvatarGroup, { avatarGroupClasses } from '@mui/material/AvatarGroup';
+import Badge from '@mui/material/Badge';
 
 import EditForm from './EditForm';
 import useToggle from './useToggleState';

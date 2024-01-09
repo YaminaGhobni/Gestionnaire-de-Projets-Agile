@@ -2,52 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Droppable } from 'react-beautiful-dnd';
-import { Box, Paper, Button, Typography, IconButton } from '@mui/material';
+import { Box, Paper, Button, Typography, IconButton, Divider } from '@mui/material';
 import { alpha } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
 
 import Task from './Task';
 import Scrollbar from '../scrollbar';
 import Iconify from '../iconify';
 
 const Column = ({ columnData, openModal, removeTask, removeColumn, editTask }) => {
-  const columnTitle = `${columnData.name} (${columnData.taskIds.length})`;
+  const columnTitle = `${columnData.name}`;
 
   return (
     <Box sx={{ width: '500px' }}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          width: '100%',
-          mb: 1,
-        }}
-      >
-        <Typography
-          sx={{
-            fontSize: '12px',
-            backgroundColor: `${columnData.color}`,
-            fontWeight: 'bold',
-            color: 'white',
-            p: 1,
-            borderRadius: '5px',
-            zIndex: 1,
-            ml: 1,
-          }}
-        >
-          {columnTitle}
-        </Typography>
-        <IconButton
-          onClick={(e) => {
-            e.preventDefault();
-            removeColumn(columnData.id);
-          }}
-        >
-          <Iconify icon="material-symbols:delete" />
-        </IconButton>
-      </Box>
-
       <Droppable droppableId={`${columnData.id - 1}`} type="COLUMN">
         {(provided, snapshot) => (
           <Scrollbar
@@ -69,12 +36,72 @@ const Column = ({ columnData, openModal, removeTask, removeColumn, editTask }) =
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '10px',
-                bgcolor: 'background.neutral',
+                bgcolor: '#EDEFF1',
                 ...(snapshot.isDragging && {
                   bgcolor: (theme) => alpha(theme.palette.grey[500], 0.24),
                 }),
               }}
             >
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  mb: 1,
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: '15px',
+                    borderBottomColor: `${columnData.color}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    fontWeight: 'bold',
+                    color: 'black',
+                    p: 1,
+                    borderRadius: '5px',
+                    zIndex: 1,
+                    ml: 1,
+                    width: 1,
+                  }}
+                >
+                  <span
+                    style={{
+                      height: '15px',
+                      width: '15px',
+                      backgroundColor: `${columnData.color}`,
+                      marginRight: '5px',
+                      borderRadius: '50%',
+                      display: 'inline-block',
+                    }}
+                  />
+                  {columnTitle}
+                  <Badge
+                    sx={{ ml: 3 }}
+                    badgeContent={columnData.taskIds.length}
+                    color="secondary"
+                  />
+                </Typography>
+                <IconButton
+                  onClick={(e) => {
+                    e.preventDefault();
+                    removeColumn(columnData.id);
+                  }}
+                >
+                  <Iconify icon="material-symbols:delete" />
+                </IconButton>
+              </Box>
+              <Divider
+                style={{
+                  background: `${columnData.color}`,
+                  height: 3,
+                  w: 3,
+                  marginLeft: '13px',
+                  marginRight: '10px',
+                }}
+              />
               {columnData.taskIds.map((task, index) => (
                 <Task
                   key={task.id}
