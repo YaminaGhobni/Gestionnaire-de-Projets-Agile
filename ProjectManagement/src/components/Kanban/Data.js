@@ -21,21 +21,27 @@ export const columnsRawData = [
     taskIds: [
       {
         id: uuid(),
-        status: 'low',
+        status: 'noStatus',
         text: 'This is a task description of Learn GraphQL',
         idColumn: 1,
         title: 'Learn GraphQL',
         comments: ['good', 'wowo'],
+        labels: ['frontend', 'backend', 'devops'],
         assignee: usersWithAvatars,
-        attachments: [], // Assign a user to the task
+        reporter: { id: 1, name: 'John Doe', avatar: 'https://example.com/avatar1.png' },
+        attachments: [],
+        priority: 'heigh', // Assign a user to the task
       },
       {
         id: uuid(),
-        status: 'heigh',
+        status: 'noStatus',
         text: 'New slides for presentation',
         idColumn: 1,
         title: 'Complete the Presentation',
         comments: ['good', 'wowo'],
+        priority: 'low',
+        labels: ['frontend', 'backend', 'devops'],
+        reporter: { id: 1, name: 'John Doe', avatar: 'https://example.com/avatar1.png' },
         assignee: usersWithAvatars,
         attachments: [], // Assign another user to the task
       },
@@ -51,9 +57,12 @@ export const columnsRawData = [
         id: uuid(),
         text: 'Blog assets',
         idColumn: 2,
-        status: 'heigh',
+        status: 'todo',
+        priority: 'low',
+        reporter: { id: 1, name: 'John Doe', avatar: 'https://example.com/avatar1.png' },
         title: 'Finalize Blogs',
         comments: ['good', 'wowo'],
+        labels: ['frontend', 'backend', 'devops'],
         assignee: usersWithAvatars,
         attachments: [], // Assign a user to the task
       },
@@ -67,20 +76,26 @@ export const columnsRawData = [
     taskIds: [
       {
         id: uuid(),
-        status: 'heigh',
+        status: 'inProgress',
         text: 'Change css img',
         idColumn: 3,
         title: 'Meeting with Airtribe',
+        priority: 'low',
+        labels: ['frontend', 'backend', 'devops'],
         comments: ['good', 'wowo'],
+        reporter: { id: 1, name: 'John Doe', avatar: 'https://example.com/avatar1.png' },
         assignee: usersWithAvatars,
         attachments: [], // Assign a user to the task
       },
       {
         id: uuid(),
         text: 'Meeting',
-        status: 'heigh',
+        status: 'inProgress',
         idColumn: 3,
+        priority: 'low',
         title: 'Wash Clothes',
+        labels: ['frontend', 'backend', 'devops'],
+        reporter: { id: 1, name: 'John Doe', avatar: 'https://example.com/avatar1.png' },
         comments: ['good', 'wowo'],
         assignee: usersWithAvatars,
         attachments: [], // Assign another user to the task
@@ -92,6 +107,20 @@ export const columnsRawData = [
     name: 'Done',
     limit: taskLimitNumber,
     color: randomColor({ luminosity: 'light' }),
-    taskIds: [],
+    taskIds: [
+      {
+        id: uuid(),
+        text: 'Meeting',
+        status: 'done',
+        idColumn: 3,
+        priority: 'low',
+        title: 'Wash Clothes',
+        labels: ['frontend', 'backend', 'devops'],
+        reporter: { id: 1, name: 'John Doe', avatar: 'https://example.com/avatar1.png' },
+        comments: ['good', 'wowo'],
+        assignee: usersWithAvatars,
+        attachments: [], // Assign another user to the task
+      },
+    ],
   },
 ];

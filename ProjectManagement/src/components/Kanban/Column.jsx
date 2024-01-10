@@ -65,6 +65,7 @@ const Column = ({ columnData, openModal, removeTask, removeColumn, editTask }) =
                     zIndex: 1,
                     ml: 1,
                     width: 1,
+                    mb: 1,
                   }}
                 >
                   <span
@@ -79,7 +80,7 @@ const Column = ({ columnData, openModal, removeTask, removeColumn, editTask }) =
                   />
                   {columnTitle}
                   <Badge
-                    sx={{ ml: 3 }}
+                    sx={{ ml: 3, color: 'white', backgroundColor: '#e0e0e0' }}
                     badgeContent={columnData.taskIds.length}
                     color="secondary"
                   />

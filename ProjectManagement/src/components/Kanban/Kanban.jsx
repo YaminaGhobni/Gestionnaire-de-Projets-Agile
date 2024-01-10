@@ -3,11 +3,11 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import { Box, Button, Container, Stack } from '@mui/material';
 
+import Iconify from '../iconify';
 import Column from './Column';
 import KanModal from './Modal';
 import AddColumn from './AddColumn';
 import { columnsRawData } from './Data';
-import Iconify from '../iconify';
 
 const Kanban = () => {
   const [openColModal, setOpenColModal] = useState(false);
@@ -131,7 +131,7 @@ const Kanban = () => {
 
   const addColumn = (newColumn) => {
     setColumns([...columns, newColumn]);
-    console.log(columns);
+    
   };
 
   useEffect(() => {

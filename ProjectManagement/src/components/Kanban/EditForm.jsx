@@ -28,6 +28,7 @@ const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText, hand
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        width: '100%',
       }}
     >
       <form
@@ -74,7 +75,7 @@ const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText, hand
           modules={{ toolbar: myToolbar }}
           onChange={onChange}
         />
-        <Button
+        {/* <Button
           sx={{
             backgroundColor: 'transparent',
             color: '#aaa',
@@ -84,7 +85,7 @@ const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText, hand
           handleClose={handleClose}
         >
           Save
-        </Button>
+        </Button> */}
       </form>
     </Box>
   );
@@ -93,11 +94,11 @@ const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText, hand
 export default EditForm;
 
 EditForm.propTypes = {
-  color: PropTypes.any,
-  editTask: PropTypes.any,
-  taskId: PropTypes.any,
-  toggle: PropTypes.any,
-  startTitle: PropTypes.any,
-  startText: PropTypes.any,
-  handleClose: PropTypes.any,
+  color: PropTypes.string,
+  editTask: PropTypes.bool,
+  taskId: PropTypes.number,
+  toggle: PropTypes.bool,
+  startTitle: PropTypes.bool,
+  startText: PropTypes.bool,
+  handleClose: PropTypes.func,
 };

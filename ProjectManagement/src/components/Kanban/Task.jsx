@@ -1,17 +1,36 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
+import { alpha, styled } from '@mui/material/styles';
+import Tooltip from '@mui/material/Tooltip';
+import Chip from '@mui/material/Chip';
 
-import { Box, Paper, IconButton, Card, Stack, Menu, Button, MenuItem, Avatar } from '@mui/material';
+import {
+  Box,
+  Paper,
+  IconButton,
+  Card,
+  Stack,
+  Menu,
+  Button,
+  MenuItem,
+  Avatar,
+  Divider,
+} from '@mui/material';
+import InputBase, { inputBaseClasses } from '@mui/material/InputBase';
+
 import { useTheme } from '@mui/material/styles';
 import AvatarGroup, { avatarGroupClasses } from '@mui/material/AvatarGroup';
-import Badge from '@mui/material/Badge';
+import Drawer from '@mui/material/Drawer';
 
 import EditForm from './EditForm';
 import useToggle from './useToggleState';
 import { bgBlur } from '../../theme/css';
 import Iconify from '../iconify';
 import Label from '../label';
+import KanbanDetailsToolbar from './kanbanDetailsToolbar';
+import Scrollbar from '../scrollbar';
+import KanbanDetailsPriority from './kanban-details-priority';
 
 const Task = ({ id, task, color, index, removeTask, editTask }) => {
   const [isEditing, toggle] = useToggle(false);
@@ -20,10 +39,140 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const StyledLabel = styled('span')(({ theme }) => ({
+    ...theme.typography.caption,
+    width: 100,
+    flexShrink: 0,
+    color: theme.palette.text.secondary,
+    fontWeight: theme.typography.fontWeightSemiBold,
+  }));
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const [priority, setPriority] = useState(task.priority);
+
   const theme = useTheme();
+  const handleChangePriority = useCallback((newValue) => {
+    setPriority(newValue);
+  }, []);
+
+  const renderReporter = (
+    <Stack direction="row" alignItems="center">
+      <StyledLabel>Reporter</StyledLabel>
+      <Avatar alt={task.reporter.name} src={task.reporter.avatar} />
+    </Stack>
+  );
+
+  const renderAssignee = (
+    <Stack direction="row">
+      <StyledLabel sx={{ height: 40, lineHeight: '40px' }}>Assignee</StyledLabel>
+
+      <Stack direction="row" flexWrap="wrap" alignItems="center" spacing={1}>
+        {task.assignee.map((user) => (
+          <Avatar key={user.id} alt={user.name} src={user.avatarUrl} />
+        ))}
+
+        <Tooltip title="Add assignee">
+          <IconButton
+            // onClick={contacts.onTrue}
+            sx={{
+              bgcolor: (Theme) => alpha(Theme.palette.grey[500], 0.08),
+              border: (Theme) => `dashed 1px ${Theme.palette.divider}`,
+            }}
+          >
+            <Iconify icon="mingcute:add-line" />
+          </IconButton>
+        </Tooltip>
+
+        {/* <KanbanContactsDialog
+          assignee={task.assignee}
+          open={contacts.value}
+          onClose={contacts.onFalse}
+        /> */}
+      </Stack>
+    </Stack>
+  );
+
+  const renderLabel = (
+    <Stack direction="row">
+      <StyledLabel sx={{ height: 24, lineHeight: '24px' }}>Labels</StyledLabel>
+
+      {!!task.labels.length && (
+        <Stack direction="row" flexWrap="wrap" alignItems="center" spacing={1}>
+          {task.labels.map((label) => (
+            <Chip key={label} color="info" label={label} size="small" variant="soft" />
+          ))}
+        </Stack>
+      )}
+    </Stack>
+  );
+
+  // const renderDueDate = (
+  //   <Stack direction="row" alignItems="center">
+  //     <StyledLabel> Due date </StyledLabel>
+
+  //     {rangePicker.selected ? (
+  //       <Button size="small" onClick={rangePicker.onOpen}>
+  //         {rangePicker.shortLabel}
+  //       </Button>
+  //     ) : (
+  //       <Tooltip title="Add due date">
+  //         <IconButton
+  //           onClick={rangePicker.onOpen}
+  //           sx={{
+  //             bgcolor: (Theme) => alpha(theme.palette.grey[500], 0.08),
+  //             border: (Theme) => `dashed 1px ${theme.palette.divider}`,
+  //           }}
+  //         >
+  //           <Iconify icon="mingcute:add-line" />
+  //         </IconButton>
+  //       </Tooltip>
+  //     )}
+
+  //     <CustomDateRangePicker
+  //       variant="calendar"
+  //       title="Choose due date"
+  //       startDate={rangePicker.startDate}
+  //       endDate={rangePicker.endDate}
+  //       onChangeStartDate={rangePicker.onChangeStartDate}
+  //       onChangeEndDate={rangePicker.onChangeEndDate}
+  //       open={rangePicker.open}
+  //       onClose={rangePicker.onClose}
+  //       selected={rangePicker.selected}
+  //       error={rangePicker.error}
+  //     />
+  //   </Stack>
+  // );
+
+  const renderPriority = (
+    <Stack direction="row" alignItems="center">
+      <StyledLabel>Priority</StyledLabel>
+      <KanbanDetailsPriority priority={priority} onChangePriority={handleChangePriority} />
+    </Stack>
+  );
+
+  const renderDescription = (
+    <Stack direction="row">
+      <StyledLabel> Description </StyledLabel>
+
+      <EditForm
+        color={color}
+        editTask={editTask}
+        taskId={task.id}
+        toggle={toggle}
+        startTitle={task.title}
+        startText={task.text}
+        handleClose={handleClose}
+      />
+    </Stack>
+  );
+
+  // const renderAttachments = (
+  //   <Stack direction="row">
+  //     <StyledLabel>Attachments</StyledLabel>
+  //     {/* <KanbanDetailsAttachments attachments={task.attachments} /> */}
+  //   </Stack>
+  // );
   const renderInfo = (
     <Stack direction="row" alignItems="center">
       <Stack
@@ -58,45 +207,51 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
       </AvatarGroup>
     </Stack>
   );
+  let statusColor;
+
+  switch (task.status) {
+    case 'inProgress':
+      statusColor = 'warning';
+      break;
+    case 'done':
+      statusColor = 'success';
+      break;
+    case 'noStatus': // added new status
+      statusColor = 'info';
+      break;
+    default:
+      statusColor = 'primary';
+  }
   return (
-    <Draggable draggableId={`${task.id}`} index={index}>
-      {(provided, snapshot) => (
-        <Paper
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          sx={{
-            width: 1,
-            borderRadius: 1.5,
-            overflow: 'hidden',
-            position: 'relative',
-            p: isEditing ? 0 : 2,
-            bgcolor: 'background.default',
-            boxShadow: theme.customShadows.z1,
-            '&:hover': {
-              boxShadow: theme.customShadows.z20,
-            },
-            ...(snapshot.isDragging && {
-              boxShadow: theme.customShadows.z20,
-              ...bgBlur({
-                opacity: 0.48,
-                color: theme.palette.background.default,
+    <>
+      <Draggable draggableId={`${task.id}`} index={index}>
+        {(provided, snapshot) => (
+          <Paper
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            sx={{
+              width: 1,
+              borderRadius: 1.5,
+              overflow: 'hidden',
+              position: 'relative',
+              p: 2,
+              bgcolor: 'background.default',
+              boxShadow: theme.customShadows.z1,
+              '&:hover': {
+                boxShadow: theme.customShadows.z20,
+              },
+              ...(snapshot.isDragging && {
+                boxShadow: theme.customShadows.z20,
+                ...bgBlur({
+                  opacity: 0.48,
+                  color: theme.palette.background.default,
+                }),
               }),
-            }),
-          }}
-        >
-          <Label color={(task.status === 'low' && 'warning') || 'success'}>{task.status}</Label>
-          {isEditing ? (
-            <EditForm
-              color={color}
-              editTask={editTask}
-              taskId={task.id}
-              toggle={toggle}
-              startTitle={task.title}
-              startText={task.text}
-              handleClose={handleClose}
-            />
-          ) : (
+            }}
+          >
+            <Label color={statusColor}>{task.status}</Label>
+
             <>
               <Box
                 sx={{
@@ -163,11 +318,83 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
                 </Menu>
               </Box>
             </>
-          )}
-          {renderInfo}
-        </Paper>
-      )}
-    </Draggable>
+
+            {renderInfo}
+          </Paper>
+        )}
+      </Draggable>
+      <Drawer
+        anchor="right"
+        slotProps={{
+          backdrop: { invisible: true },
+        }}
+        PaperProps={{
+          sx: {
+            width: {
+              xs: 1,
+              sm: 480,
+            },
+          },
+        }}
+        open={isEditing}
+        onClose={handleClose}
+      >
+        <KanbanDetailsToolbar
+          liked={5}
+          onLike={() => {}}
+          taskName={task.title}
+          onDelete={() => {}}
+          taskStatus={task.status}
+          onCloseDetails={onclose}
+        />
+
+        <Divider />
+        <Scrollbar
+          sx={{
+            height: 1,
+            '& .simplebar-content': {
+              height: 1,
+              display: 'flex',
+              flexDirection: 'column',
+            },
+          }}
+        >
+          <Stack
+            spacing={3}
+            sx={{
+              pt: 3,
+              pb: 5,
+              px: 2.5,
+            }}
+          >
+            {renderReporter}
+
+            {renderAssignee}
+
+            {renderLabel}
+
+            {renderPriority}
+
+            {renderDescription}
+
+            {/* {renderAttachments} */}
+          </Stack>
+
+          {/* {!!task.comments
+            .length && renderComments} */}
+        </Scrollbar>
+        <Button
+          sx={{
+            margin: '10px',
+          }}
+          variant="outlined"
+          type="submit"
+          handleClose={handleClose}
+        >
+          Save
+        </Button>
+      </Drawer>
+    </>
   );
 };
 
