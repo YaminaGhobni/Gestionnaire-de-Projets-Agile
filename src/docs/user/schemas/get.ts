@@ -17,8 +17,6 @@
  *           type: string
  *         phoneNumber:
  *           type: string
- *         verified:
- *           type: boolean
  *         roles:
  *            type: string[]
  *         createdAt:

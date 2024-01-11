@@ -12,6 +12,14 @@
  *        required: true
  *        content:
  *          application/json:
+ *              example:
+ *                firstName: "mohammed"
+ *                lastName: "bin salman"
+ *                userName: "MBS"
+ *                email: "mbs@gmail.com"
+ *                phoneNumber: "23878321"
+ *                role: "USER"
+ *                password: "mmbs1234"
  *              schema:
  *                $ref: '#components/schemas/CreateUser'
  *      responses:
@@ -24,7 +32,7 @@
  *                  user:
  *                    $ref: '#/components/schemas/GetUser'
  *        400:
- *          description: 	Validation Failed
+ *          description: Validation Failed
  *        401:
  *          description: Error Token
  *        403:

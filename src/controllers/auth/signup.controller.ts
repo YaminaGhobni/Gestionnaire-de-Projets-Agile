@@ -24,7 +24,6 @@ export const signup = asyncHandler(async (req: RoleRequest, res) => {
     email,
     phoneNumber,
     password,
-    verified: true,
     userName,
     roles: [roleUser._id],
   } as User);

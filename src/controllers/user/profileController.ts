@@ -12,9 +12,10 @@ export const getMyProfile = asyncHandler(async (req: ProtectedRequest, res) => {
 });
 
 export const updateProfile = asyncHandler(async (req: any, res) => {
+  const { body } = req;
   const user = await UserRepo.getOneById(req.user._id);
   if (!user) throw new BadRequestError('User not registered');
   if (req.file) user.profilePicUrl = req.file.path;
-  await UserRepo.update(user._id, { ...user });
+  await UserRepo.update(user._id, { ...body });
   return new SuccessResponse('Profile updated', user).send(res);
 });

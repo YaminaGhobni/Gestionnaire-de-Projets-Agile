@@ -14,7 +14,6 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
   let user = await UserRepo.getOneByObj({ email: req.body.email });
   if (!user) throw new BadRequestError('User not registered');
   if (!user.password) throw new BadRequestError('Credential not set');
-  if (!user.verified) throw new BadRequestError('User not verified');
 
   const match = await bcryptjs.compare(req.body.password, user.password);
   if (!match) throw new AuthFailureError('Authentication failure');

@@ -16,18 +16,22 @@ export default {
     userName: Joi.string().min(1).max(200),
     email: Joi.string().required().email(),
     phoneNumber: Joi.string().optional().min(1).max(200).empty(''),
+    role: Joi.string().required().min(1).max(200).empty(''),
     password: Joi.string()
       .required()
       .regex(/^[a-zA-Z0-9]{8,30}$/),
     profilePicUrl: Joi.string().optional().uri(),
   }),
   update: Joi.object().keys({
-    firstName: Joi.string().min(1).max(200),
-    lastName: Joi.string().min(1).max(200),
+    firstName: Joi.string().optional().min(1).max(200),
+    lastName: Joi.string().min(1).max(200).empty(''),
     userName: Joi.string().min(1).max(200),
-    email: Joi.string().email(),
-    phoneNumber: Joi.string().optional().min(1).max(200),
-    password: Joi.string().regex(/^[a-zA-Z0-9]{8,30}$/),
+    email: Joi.string().optional().email(),
+    phoneNumber: Joi.string().optional().min(1).max(200).empty(''),
+    role: Joi.string().optional().min(1).max(200).empty(''),
+    password: Joi.string()
+      .optional()
+      .regex(/^[a-zA-Z0-9]{8,30}$/),
     profilePicUrl: Joi.string().optional().uri(),
   }),
 };

@@ -11,19 +11,12 @@
  *           type: string
  *         userName:
  *           type: string
- *         userType:
+ *         role:
  *           type: string
- *         file:
- *          type: string
- *          format: binary
  *         email:
  *           type: string
  *         phoneNumber:
  *           type: string
  *         password:
  *           type: string
- *         verified:
- *           type: boolean
- *         roles:
- *            type: string[]
  */

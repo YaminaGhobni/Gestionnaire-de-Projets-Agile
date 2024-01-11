@@ -22,7 +22,10 @@ router
     validator(schema.create),
     userController.createUser
   )
-  .get(userController.getAllUsers);
+  .get(
+    authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN]),
+    userController.getAllUsers
+  );
 
 router
   .route('/me')
@@ -32,13 +35,17 @@ router
   )
   .put(
     fileUploadHandler.handleSingleFileUpload('file'),
-    authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN]),
+    authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN, RoleCode.USER]),
     userController.updateProfile
   );
 
 router
   .route('/:id')
-  .get(validator(schema.param, ValidationSource.PARAM), userController.getUser)
+  .get(
+    authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN]),
+    validator(schema.param, ValidationSource.PARAM),
+    userController.getUser
+  )
   .put(
     fileUploadHandler.handleSingleFileUpload('file'),
     authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN]),
@@ -47,7 +54,7 @@ router
     userController.updateUser
   )
   .delete(
-    authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN, RoleCode.USER]),
+    authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN]),
     validator(schema.param, ValidationSource.PARAM),
     userController.removeUser
   );

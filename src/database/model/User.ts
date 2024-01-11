@@ -19,8 +19,6 @@ export default interface IUser extends Document {
   userType: User;
   profilePicUrl?: string;
   roles: Role[];
-  verified?: boolean;
-  documentVerified?: boolean;
   token?: string | null;
   resetCode?: string | null;
   deletedAt?: Date;
@@ -66,22 +64,7 @@ const schema = new Schema<IUser>(
         },
       ],
     },
-    verified: {
-      type: Schema.Types.Boolean,
-      default: false,
-    },
-    documentVerified: {
-      type: Schema.Types.Boolean,
-      default: false,
-    },
-    token: {
-      type: Schema.Types.String,
-      nullable: true,
-    },
-    resetCode: {
-      type: Schema.Types.String,
-      nullable: true,
-    },
+
     deletedAt: {
       type: Date,
       default: null,

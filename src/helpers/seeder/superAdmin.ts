@@ -24,7 +24,6 @@ export const seedSuperAdmin = async (
       try {
         let superAdmin = {
           roles: [roleSuperAdmin],
-          verified: true,
           name,
           email,
           password,

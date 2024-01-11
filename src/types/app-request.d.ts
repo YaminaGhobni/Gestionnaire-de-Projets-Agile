@@ -2,7 +2,6 @@ import { Request } from 'express';
 import { Document } from 'mongoose';
 
 import User from '../database/model/User';
-import Admin from '../database/model/Admin';
 import Keystore from '../database/model/Keystore';
 import { CustomFile } from '../helpers/fileUpload';
 
