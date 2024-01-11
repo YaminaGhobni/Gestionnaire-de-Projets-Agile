@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
-import { alpha, styled } from '@mui/material/styles';
+import { useTheme, alpha, styled } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
 import Chip from '@mui/material/Chip';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 import {
   Box,
@@ -17,9 +18,7 @@ import {
   Avatar,
   Divider,
 } from '@mui/material';
-import InputBase, { inputBaseClasses } from '@mui/material/InputBase';
 
-import { useTheme } from '@mui/material/styles';
 import AvatarGroup, { avatarGroupClasses } from '@mui/material/AvatarGroup';
 import Drawer from '@mui/material/Drawer';
 
@@ -34,7 +33,7 @@ import KanbanDetailsPriority from './kanban-details-priority';
 
 const Task = ({ id, task, color, index, removeTask, editTask }) => {
   const [isEditing, toggle] = useToggle(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -49,6 +48,13 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const [openDrawer, setOpenDrawer] = React.useState(false);
+
+  const handleDrawerOpen = (event) => {
+    setOpenDrawer(true);
+  };
+  const handleDrawerClose = () => setOpenDrawer(false);
+
   const [priority, setPriority] = useState(task.priority);
 
   const theme = useTheme();
@@ -292,7 +298,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
                   <MenuItem onClick={handleClose}>
                     <Button
                       startIcon={<Iconify icon="material-symbols:edit" />}
-                      onClick={toggle}
+                      onClick={handleDrawerOpen}
                       sx={{
                         bgcolor: 'transparent',
                         color: '#aaa',
@@ -323,77 +329,83 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
           </Paper>
         )}
       </Draggable>
-      <Drawer
-        anchor="right"
-        slotProps={{
-          backdrop: { invisible: true },
-        }}
-        PaperProps={{
-          sx: {
-            width: {
-              xs: 1,
-              sm: 480,
-            },
-          },
-        }}
-        open={isEditing}
-        onClose={handleClose}
+      <ClickAwayListener
+        mouseEvent="onMouseDown"
+        touchEvent="onTouchStart"
+        onClickAway={() => handleClose()}
       >
-        <KanbanDetailsToolbar
-          liked={5}
-          onLike={() => {}}
-          taskName={task.title}
-          onDelete={() => {}}
-          taskStatus={task.status}
-          onCloseDetails={onclose}
-        />
-
-        <Divider />
-        <Scrollbar
-          sx={{
-            height: 1,
-            '& .simplebar-content': {
-              height: 1,
-              display: 'flex',
-              flexDirection: 'column',
+        <Drawer
+          anchor="right"
+          slotProps={{
+            backdrop: { invisible: true },
+          }}
+          PaperProps={{
+            sx: {
+              width: {
+                xs: 1,
+                sm: 480,
+              },
             },
           }}
+          open={openDrawer}
+          onClose={handleDrawerClose}
         >
-          <Stack
-            spacing={3}
+          <KanbanDetailsToolbar
+            liked={5}
+            onLike={() => {}}
+            taskName={task.title}
+            onDelete={() => {}}
+            taskStatus={task.status}
+            onCloseDetails={onclose}
+          />
+
+          <Divider />
+          <Scrollbar
             sx={{
-              pt: 3,
-              pb: 5,
-              px: 2.5,
+              height: 1,
+              '& .simplebar-content': {
+                height: 1,
+                display: 'flex',
+                flexDirection: 'column',
+              },
             }}
           >
-            {renderReporter}
+            <Stack
+              spacing={3}
+              sx={{
+                pt: 3,
+                pb: 5,
+                px: 2.5,
+              }}
+            >
+              {renderReporter}
 
-            {renderAssignee}
+              {renderAssignee}
 
-            {renderLabel}
+              {renderLabel}
 
-            {renderPriority}
+              {renderPriority}
 
-            {renderDescription}
+              {renderDescription}
 
-            {/* {renderAttachments} */}
-          </Stack>
+              {/* {renderAttachments} */}
+            </Stack>
 
-          {/* {!!task.comments
+            {/* {!!task.comments
             .length && renderComments} */}
-        </Scrollbar>
-        <Button
-          sx={{
-            margin: '10px',
-          }}
-          variant="outlined"
-          type="submit"
-          handleClose={handleClose}
-        >
-          Save
-        </Button>
-      </Drawer>
+          </Scrollbar>
+          <Button
+            sx={{
+              margin: '10px',
+            }}
+            variant="outlined"
+            type="submit"
+            handleClose={handleClose}
+          >
+            Save
+          </Button>
+        </Drawer>
+      </ClickAwayListener>
     </>
   );
 };

@@ -24,7 +24,6 @@ const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText, hand
   return (
     <Box
       sx={{
-        p: 1,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
