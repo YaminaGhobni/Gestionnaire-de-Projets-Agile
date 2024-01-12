@@ -30,7 +30,7 @@ const schema = new Schema<Notification>(
       trim: true,
     },
     data: {
-      traskId: {
+      taskId: {
         type: Schema.Types.ObjectId,
         ref: 'Task',
       },
@@ -54,7 +54,7 @@ const schema = new Schema<Notification>(
     versionKey: false,
   }
 );
-preFindHook(schema, ['data.userId', 'data.meetingId']);
+preFindHook(schema, ['data.taskId', 'data.meetingId']);
 schema.plugin(mongoosePagination);
 
 export const NotificationModel = model<Notification, Pagination<Notification>>(
