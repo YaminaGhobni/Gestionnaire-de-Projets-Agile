@@ -18,7 +18,7 @@ const createNewSprint = () => (
         Create a new sprint
       </Typography>
 
-      <SprintNewEditForm isEdit={false} currentSprint={{ name: 'xsx' }} />
+      <SprintNewEditForm isEdit={false} />
     </Container>
   </>
 );

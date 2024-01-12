@@ -73,8 +73,14 @@ export default function ProjectsPage() {
     navigate(`/projects/edit/${id}`);
   };
 
-  const handleViewRow = (id) => {
-    navigate(`/projects/view/${id}`);
+  const handleViewRow = (id, name) => {
+    navigate(
+      `/projects/view/${id}`,
+
+      {
+        state: { name },
+      }
+    );
   };
 
   const handleSort = (event, id) => {
@@ -186,7 +192,7 @@ export default function ProjectsPage() {
                         handleClick={(event) => handleClick(event, row.name)}
                         onDeleteRow={() => handleDeleteRow(row.id)}
                         onEditRow={() => handleEditRow(row.name)}
-                        onViewRow={() => handleViewRow(row.id)}
+                        onViewRow={() => handleViewRow(row.id, row.name)}
                       />
                     ))}
 

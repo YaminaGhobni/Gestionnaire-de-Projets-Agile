@@ -3,24 +3,24 @@ import { Helmet } from 'react-helmet-async';
 
 import { Container, Typography } from '@mui/material';
 
-import ProjectNewEditForm from './ProjectNewEditForm';
+import SprintNewEditForm from './SprintNewEditForm';
 
 // ----------------------------------------------------------------------
 
-const createNewProject = () => (
+const createNewSprint = () => (
   <>
     <Helmet>
-      <title> Project: Create a new project</title>
+      <title> Sprint: Edit sprint</title>
     </Helmet>
 
     <Container>
       <Typography variant="h4" mb={3}>
-        Create a new project
+        Edit sprint
       </Typography>
 
-      <ProjectNewEditForm isEdit={false} />
+      <SprintNewEditForm isEdit currentSprint={{ name: 'xsx' }} />
     </Container>
   </>
 );
 
-export default createNewProject;
+export default createNewSprint;

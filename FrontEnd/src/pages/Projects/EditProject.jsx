@@ -10,15 +10,15 @@ import ProjectNewEditForm from './ProjectNewEditForm';
 const createNewProject = () => (
   <>
     <Helmet>
-      <title> Project: Create a new project</title>
+      <title> Project: Edit project</title>
     </Helmet>
 
     <Container>
       <Typography variant="h4" mb={3}>
-        Create a new project
+        Edit project
       </Typography>
 
-      <ProjectNewEditForm isEdit={false} />
+      <ProjectNewEditForm isEdit currentProject={{ name: 'xsx' }} />
     </Container>
   </>
 );

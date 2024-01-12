@@ -10,10 +10,11 @@ export const LoginPage = lazy(() => import('src/pages/login'));
 
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 export const Projects = lazy(() => import('src/pages/Projects'));
+export const EditProject = lazy(() => import('src/pages/Projects/EditProject'));
 export const CreateProject = lazy(() => import('src/pages/Projects/CreateNewProject'));
 export const ViewProject = lazy(() => import('src/pages/Sprints'));
 
-// export const Sprints = lazy(() => import('src/pages/Sprints'));
+export const EditSprint = lazy(() => import('src/pages/Sprints/EditSprint'));
 export const CreateSprint = lazy(() => import('src/pages/Sprints/CreateNewSprint'));
 export const ViewSprint = lazy(() => import('src/pages/Sprints/ViewSprint'));
 
@@ -48,7 +49,7 @@ export default function Router() {
         },
         {
           path: 'projects/edit/:name',
-          element: <CreateProject />,
+          element: <EditProject />,
         },
         {
           path: 'projects/view/:id',
@@ -64,7 +65,7 @@ export default function Router() {
         },
         {
           path: 'sprints/edit/:name',
-          element: <CreateSprint />,
+          element: <EditSprint />,
         },
         {
           path: 'sprints/view/:id',
