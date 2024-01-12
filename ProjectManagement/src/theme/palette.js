@@ -2,6 +2,8 @@ import { alpha } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
+
+
 // SETUP COLORS
 
 export const grey = {
@@ -18,11 +20,11 @@ export const grey = {
 };
 
 export const primary = {
-  lighter: '#D0ECFE',
-  light: '#73BAFB',
-  main: '#1877F2',
-  dark: '#0C44AE',
-  darker: '#042174',
+  lighter: '#C8FAD6',
+  light: '#5BE49B',
+  main: '#00A76F',
+  dark: '#007867',
+  darker: '#004B50',
   contrastText: '#FFFFFF',
 };
 
@@ -45,12 +47,12 @@ export const info = {
 };
 
 export const success = {
-  lighter: '#C8FAD6',
-  light: '#5BE49B',
-  main: '#00A76F',
-  dark: '#007867',
-  darker: '#004B50',
-  contrastText: '#FFFFFF',
+  lighter: '#D3FCD2',
+  light: '#77ED8B',
+  main: '#22C55E',
+  dark: '#118D57',
+  darker: '#065E49',
+  contrastText: '#ffffff',
 };
 
 export const warning = {
@@ -101,8 +103,8 @@ const base = {
 
 // ----------------------------------------------------------------------
 
-export function palette() {
-  return {
+export function palette(mode) {
+  const light = {
     ...base,
     mode: 'light',
     text: {
@@ -112,7 +114,7 @@ export function palette() {
     },
     background: {
       paper: '#FFFFFF',
-      default: grey[100],
+      default: '#FFFFFF',
       neutral: grey[200],
     },
     action: {
@@ -120,4 +122,25 @@ export function palette() {
       active: grey[600],
     },
   };
+
+  const dark = {
+    ...base,
+    mode: 'dark',
+    text: {
+      primary: '#FFFFFF',
+      secondary: grey[500],
+      disabled: grey[600],
+    },
+    background: {
+      paper: grey[800],
+      default: grey[900],
+      neutral: alpha(grey[500], 0.12),
+    },
+    action: {
+      ...base.action,
+      active: grey[500],
+    },
+  };
+
+  return mode === 'light' ? light : dark;
 }

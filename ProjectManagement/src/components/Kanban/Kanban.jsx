@@ -131,7 +131,6 @@ const Kanban = () => {
 
   const addColumn = (newColumn) => {
     setColumns([...columns, newColumn]);
-    
   };
 
   useEffect(() => {
@@ -143,6 +142,7 @@ const Kanban = () => {
       sx={{
         height: 1,
       }}
+      maxWidth={false}
     >
       <DragDropContext onDragEnd={onDragEnd}>
         <AddColumn
