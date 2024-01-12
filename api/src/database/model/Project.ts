@@ -22,16 +22,6 @@ const schema = new Schema<IProject>(
       ref: "User",
       required: true,
     },
-    createdAt: {
-      type: Date,
-      required: true,
-      select: false,
-    },
-    updatedAt: {
-      type: Date,
-      required: true,
-      select: false,
-    },
   },
   {
     timestamps: true,
