@@ -22,6 +22,11 @@ const navConfig = [
     path: '/meeting',
     icon: icon('ic_user'),
   },
+  {
+    title: 'backlog',
+    path: '/backlog',
+    icon: icon('ic_user'),
+  },
   // {
   //   title: 'login',
   //   path: '/login',

@@ -4,6 +4,8 @@ import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 import DashboardLayout from 'src/layouts/dashboard';
 import MeetingPage from 'src/pages/meeting';
 import MeetingForm from 'src/pages/meeting/meetingForm';
+export const BacklogPage = lazy(() => import('src/pages/backlog'));
+export const BacklogCreatePage = lazy(() => import('src/pages/backlogCreatePage'));
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 
@@ -30,6 +32,15 @@ export default function Router() {
         { path: 'meeting', element: <MeetingPage /> },
         { path: 'meeting/create', element: <MeetingForm /> },
         { path: 'meeting/:id/edit', element: <MeetingForm /> },
+        {
+          path: 'backlog',
+          children: [
+            { element: <Navigate to="/backlog/list" replace />, index: true },
+            { path: 'list', element: <BacklogPage /> },
+            { path: 'new', element: <BacklogCreatePage /> },
+            { path: 'edit', element: <BacklogCreatePage /> },
+          ],
+        },
       ],
     },
 
