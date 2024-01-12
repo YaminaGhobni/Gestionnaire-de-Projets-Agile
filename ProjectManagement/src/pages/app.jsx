@@ -10,7 +10,7 @@ export default function AppPage() {
         <title> Dashboard   </title>
       </Helmet>
 
-      {/* <AppView /> */}
+      
     </>
   );
 }

@@ -15,27 +15,37 @@ const Kanban = () => {
   const [columns, setColumns] = useState(columnsRawData);
   const [modal, setModal] = useState(false);
 
+  // This function is called when a draggable item is dropped
   const onDragEnd = (result) => {
     const { destination, source } = result;
 
+    // Check if there is no destination for the dropped item
     if (!destination) {
       return;
     }
 
+    // Check if the item was dropped in the same position
     if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
     }
 
+    // Get the source and destination columns based on droppableId
     const start = columns[source.droppableId];
     const finish = columns[destination.droppableId];
 
+    // Check if the item is moved within the same column
     if (start === finish) {
+      // Clone the taskIds array from the source column
       const newTaskIds = Array.from(start.taskIds);
 
+      // Remove the item from its original position
       const swapTask = newTaskIds[source.index];
       newTaskIds.splice(source.index, 1);
+
+      // Insert the item at the new position
       newTaskIds.splice(destination.index, 0, swapTask);
 
+      // Update the state with the new task order in the same column
       const newColumnsState = columns.map((c) => {
         if (c.id === start.id) {
           c.taskIds = newTaskIds;
@@ -44,15 +54,20 @@ const Kanban = () => {
         return c;
       });
 
+      // Clone the new state and update the state with the changes
       const newColumnsState2 = [...newColumnsState];
       setColumns(newColumnsState2);
     } else if (finish.taskIds.length < finish.limit) {
+      // If the item is moved to a different column and the destination column has space
+
+      // Clone taskIds from the source and destination columns
       const startTaskIds = Array.from(start.taskIds);
       const [item] = startTaskIds.splice(source.index, 1);
 
       const finishTaskIds = Array.from(finish.taskIds);
       finishTaskIds.splice(destination.index, 0, item);
 
+      // Update the state with the new task order in both the source and destination columns
       const newColumnsState = columns.map((c) => {
         if (c.id === start.id) {
           c.taskIds = startTaskIds;
@@ -64,6 +79,8 @@ const Kanban = () => {
         }
         return c;
       });
+
+      // Clone the new state and update the state with the changes
       const newColumnsState2 = [...newColumnsState];
       setColumns(newColumnsState2);
     }
@@ -95,15 +112,21 @@ const Kanban = () => {
     setColumns(updatedColumns);
   };
 
+  // Function to remove a task with a given taskId from the columns state
   const removeTask = (taskId) => {
+    // Map through the columns and create a new array with updated taskIds
     const updatedColumns = columns
       .map((column) => ({
         ...column,
         ...{
+          // Filter out the task with the given taskId from the column's taskIds
           taskIds: column.taskIds.filter((task) => task.id !== taskId),
         },
       }))
+      // Filter out columns that have no tasks (taskIds.length >= 0)
       .filter((column) => column.taskIds.length >= 0);
+
+    // Update the state with the new columns state excluding the removed task
     setColumns(updatedColumns);
   };
 
@@ -130,10 +153,6 @@ const Kanban = () => {
   const addColumn = (newColumn) => {
     setColumns([...columns, newColumn]);
   };
-
-  useEffect(() => {
-    window.localStorage.setItem('columns', JSON.stringify(columns));
-  }, [columns]);
 
   return (
     <Container

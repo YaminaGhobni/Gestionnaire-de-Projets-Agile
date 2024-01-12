@@ -8,21 +8,22 @@ const icon = (name) => (
 );
 
 const navConfig = [
+  // {
+  //   title: 'dashboard',
+  //   path: '/',
+  //   icon: icon('ic_analytics'),
+  // },
   {
-    title: 'dashboard',
-    path: '/',
-    icon: icon('ic_analytics'),
+    title: 'kanban',
+    path: '/kanban',
+    icon: <Iconify icon="ph:kanban-bold" />,
   },
   {
     title: 'user',
     path: '/user',
     icon: icon('ic_user'),
   },
-  {
-    title: 'kanban',
-    path: '/kanban',
-    icon:  <Iconify icon="ph:kanban-bold" />,
-  },
+
   {
     title: 'login',
     path: '/login',

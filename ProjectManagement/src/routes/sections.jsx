@@ -24,7 +24,7 @@ export default function Router() {
         </DashboardLayout>
       ),
       children: [
-        { element: <IndexPage />, index: true },
+        // { element: <IndexPage />, index: true },
         { path: '/kanban', element: <Kanban /> },
         { path: 'user', element: <UserPage /> },
       ],
