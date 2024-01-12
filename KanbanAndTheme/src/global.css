@@ -1,0 +1,11 @@
+/* scrollbar */
+@import 'simplebar-react/dist/simplebar.min.css';
+
+.ql-toolbar {
+  border-top-left-radius: 15px !important;
+  border-top-right-radius: 15px !important;
+}
+.ql-container {
+  border-bottom-left-radius: 15px !important;
+  border-bottom-right-radius: 15px !important;
+}
