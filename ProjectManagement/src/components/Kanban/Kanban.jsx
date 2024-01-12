@@ -19,12 +19,10 @@ const Kanban = () => {
     const { destination, source } = result;
 
     if (!destination) {
-      console.log('no destination');
       return;
     }
 
     if (destination.droppableId === source.droppableId && destination.index === source.index) {
-      console.log('index and destination the same');
       return;
     }
 

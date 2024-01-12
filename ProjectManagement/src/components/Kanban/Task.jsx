@@ -29,7 +29,7 @@ import Iconify from '../iconify';
 import Label from '../label';
 import KanbanDetailsToolbar from './kanbanDetailsToolbar';
 import Scrollbar from '../scrollbar';
-import KanbanDetailsPriority from './kanban-details-priority';
+import KanbanDetailsPriority from './kanbanDetailsPriority';
 
 const Task = ({ id, task, color, index, removeTask, editTask }) => {
   const [isEditing, toggle] = useToggle(false);
@@ -400,7 +400,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
             }}
             variant="outlined"
             type="submit"
-            handleClose={handleClose}
+            onClick={() => handleClose()}
           >
             Save
           </Button>
