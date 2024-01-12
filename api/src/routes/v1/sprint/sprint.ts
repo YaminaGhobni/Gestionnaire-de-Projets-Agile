@@ -4,9 +4,9 @@ import authentication from "../../../auth/authentication";
 import authorization from "../../../auth/authorization";
 import {
   create,
-//   getAll,
-//   deleteProject,
-//   getOne
+  getAll,
+  deleteOne,
+  getOne
 } from "../../../controllers/sprint/sprintController";
 
 
@@ -19,25 +19,25 @@ router.post(
   create
 );
 
-// router.get(
-//   "/",
-//   authentication,
-//   authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN, RoleCode.USER]),
-//   getAll
-// );
+router.get(
+  "/projects/:projetId",
+  authentication,
+  authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN, RoleCode.USER]),
+  getAll
+);
 
-// router.get(
-//   "/:projectId",
-//   authentication,
-//   authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN, RoleCode.USER]),
-//   getOne
-// );
+router.get(
+  "/:sprintId",
+  authentication,
+  authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN, RoleCode.USER]),
+  getOne
+);
 
-// router.delete(
-//   "/:projectId",
-//   authentication,
-//   authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN, RoleCode.USER]),
-//   create
-// );
+router.delete(
+  "/:projectId",
+  authentication,
+  authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN, RoleCode.USER]),
+  deleteOne
+);
 
 export default router;
