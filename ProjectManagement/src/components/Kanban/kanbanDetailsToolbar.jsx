@@ -26,19 +26,8 @@ export default function KanbanDetailsToolbar({
 }) {
   const smUp = useResponsive('up', 'sm');
 
-  // const confirm = useBoolean();
-
-  // const popover = usePopover();
-
+  const [open, setOpen] = useState(false);
   const [status, setStatus] = useState(taskStatus);
-
-  //   const handleChangeStatus = useCallback(
-  //     (newValue: string) => {
-  //       popover.onClose();
-  //       setStatus(newValue);
-  //     },
-  //     [popover]
-  //   );
 
   return (
     <>
@@ -61,7 +50,6 @@ export default function KanbanDetailsToolbar({
           size="small"
           variant="soft"
           endIcon={<Iconify icon="eva:arrow-ios-downward-fill" width={16} sx={{ ml: -0.5 }} />}
-          //      onClick={popover.onOpen}
         >
           {status}
         </Button>
@@ -74,9 +62,7 @@ export default function KanbanDetailsToolbar({
           </Tooltip>
 
           <Tooltip title="Delete task">
-            <IconButton
-            // onClick={confirm.onTrue}
-            >
+            <IconButton onClick={() => setOpen(true)}>
               <Iconify icon="solar:trash-bin-trash-bold" />
             </IconButton>
           </Tooltip>
@@ -88,8 +74,8 @@ export default function KanbanDetailsToolbar({
       </Stack>
 
       <ConfirmDialog
-        //   open={confirm.value}
-        //   onClose={confirm.onFalse}
+        open={open}
+        onClose={() => setOpen(false)}
         title="Delete"
         content={
           <>
@@ -100,7 +86,7 @@ export default function KanbanDetailsToolbar({
           <Button
             variant="contained"
             color="error"
-            // onClick={onDelete}
+             onClick={onDelete}
           >
             Delete
           </Button>

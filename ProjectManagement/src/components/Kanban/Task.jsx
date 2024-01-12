@@ -31,7 +31,21 @@ import KanbanDetailsToolbar from './kanbanDetailsToolbar';
 import Scrollbar from '../scrollbar';
 import KanbanDetailsPriority from './kanbanDetailsPriority';
 
-const Task = ({ id, task, color, index, removeTask, editTask }) => {
+const Task = ({
+  id,
+  task,
+  color,
+  index,
+  removeTask,
+  editTask,
+  isCreate,
+  openCreateTaskDrawer,
+  setOpenCreateTaskDrawer,
+  addTask,
+  columnData,
+  idColumn,
+  getColumnId,
+}) => {
   const [isEditing, toggle] = useToggle(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -65,7 +79,7 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
   const renderReporter = (
     <Stack direction="row" alignItems="center">
       <StyledLabel>Reporter</StyledLabel>
-      <Avatar alt={task.reporter.name} src={task.reporter.avatar} />
+      <Avatar alt={task?.reporter?.name} src={task?.reporter?.avatar} />
     </Stack>
   );
 
@@ -74,8 +88,8 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
       <StyledLabel sx={{ height: 40, lineHeight: '40px' }}>Assignee</StyledLabel>
 
       <Stack direction="row" flexWrap="wrap" alignItems="center" spacing={1}>
-        {task.assignee.map((user) => (
-          <Avatar key={user.id} alt={user.name} src={user.avatarUrl} />
+        {task?.assignee?.map((user) => (
+          <Avatar key={user?.id} alt={user?.name} src={user?.avatarUrl} />
         ))}
 
         <Tooltip title="Add assignee">
@@ -103,52 +117,15 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
     <Stack direction="row">
       <StyledLabel sx={{ height: 24, lineHeight: '24px' }}>Labels</StyledLabel>
 
-      {!!task.labels.length && (
+      {!!task?.labels?.length && (
         <Stack direction="row" flexWrap="wrap" alignItems="center" spacing={1}>
-          {task.labels.map((label) => (
+          {task?.labels?.map((label) => (
             <Chip key={label} color="info" label={label} size="small" variant="soft" />
           ))}
         </Stack>
       )}
     </Stack>
   );
-
-  // const renderDueDate = (
-  //   <Stack direction="row" alignItems="center">
-  //     <StyledLabel> Due date </StyledLabel>
-
-  //     {rangePicker.selected ? (
-  //       <Button size="small" onClick={rangePicker.onOpen}>
-  //         {rangePicker.shortLabel}
-  //       </Button>
-  //     ) : (
-  //       <Tooltip title="Add due date">
-  //         <IconButton
-  //           onClick={rangePicker.onOpen}
-  //           sx={{
-  //             bgcolor: (Theme) => alpha(theme.palette.grey[500], 0.08),
-  //             border: (Theme) => `dashed 1px ${theme.palette.divider}`,
-  //           }}
-  //         >
-  //           <Iconify icon="mingcute:add-line" />
-  //         </IconButton>
-  //       </Tooltip>
-  //     )}
-
-  //     <CustomDateRangePicker
-  //       variant="calendar"
-  //       title="Choose due date"
-  //       startDate={rangePicker.startDate}
-  //       endDate={rangePicker.endDate}
-  //       onChangeStartDate={rangePicker.onChangeStartDate}
-  //       onChangeEndDate={rangePicker.onChangeEndDate}
-  //       open={rangePicker.open}
-  //       onClose={rangePicker.onClose}
-  //       selected={rangePicker.selected}
-  //       error={rangePicker.error}
-  //     />
-  //   </Stack>
-  // );
 
   const renderPriority = (
     <Stack direction="row" alignItems="center">
@@ -164,11 +141,14 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
       <EditForm
         color={color}
         editTask={editTask}
-        taskId={task.id}
+        taskId={task?.id}
         toggle={toggle}
-        startTitle={task.title}
+        startTitle={task?.title}
         startText={task.text}
         handleClose={handleClose}
+        setOpenCreateTaskDrawer={setOpenCreateTaskDrawer}
+        addTask={addTask}
+        idColumn={idColumn}
       />
     </Stack>
   );
@@ -192,23 +172,23 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
       >
         <Iconify width={16} icon="solar:chat-round-dots-bold" sx={{ mr: 0.25 }} />
         <Box component="span" sx={{ mr: 1 }}>
-          {task.comments.length}
+          {task?.comments?.length || '0'}
         </Box>
 
         <Iconify width={16} icon="eva:attach-2-fill" sx={{ mr: 0.25 }} />
-        <Box component="span">{task.attachments.length}</Box>
+        <Box component="span">{task?.attachments?.length || 0}</Box>
       </Stack>
 
       <AvatarGroup
         sx={{
-          [`& .${avatarGroupClasses.avatar}`]: {
+          [`& .${avatarGroupClasses?.avatar}`]: {
             width: 24,
             height: 24,
           },
         }}
       >
-        {task.assignee.map((user) => (
-          <Avatar key={user.id} alt={user.name} src={user.avatar} />
+        {task?.assignee?.map((user) => (
+          <Avatar key={user?.id} alt={user?.name} src={user?.avatar} />
         ))}
       </AvatarGroup>
     </Stack>
@@ -230,105 +210,109 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
   }
   return (
     <>
-      <Draggable draggableId={`${task.id}`} index={index}>
-        {(provided, snapshot) => (
-          <Paper
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            sx={{
-              width: 1,
-              borderRadius: 1.5,
-              overflow: 'hidden',
-              position: 'relative',
-              p: 2,
-              bgcolor: 'background.default',
-              boxShadow: theme.customShadows.z1,
-              '&:hover': {
-                boxShadow: theme.customShadows.z20,
-              },
-              ...(snapshot.isDragging && {
-                boxShadow: theme.customShadows.z20,
-                ...bgBlur({
-                  opacity: 0.48,
-                  color: theme.palette.background.default,
+      {isCreate.toString() === 'false' && (
+        <Draggable draggableId={`${task.id}`} index={index}>
+          {(provided, snapshot) => (
+            <Paper
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              sx={{
+                width: 1,
+                borderRadius: 1.5,
+                overflow: 'hidden',
+                position: 'relative',
+                p: 2,
+                bgcolor: 'background.default',
+                boxShadow: theme.customShadows.z1,
+                '&:hover': {
+                  boxShadow: theme.customShadows.z20,
+                },
+                ...(snapshot.isDragging && {
+                  boxShadow: theme.customShadows.z20,
+                  ...bgBlur({
+                    opacity: 0.48,
+                    color: theme.palette.background.default,
+                  }),
                 }),
-              }),
-            }}
-          >
-            <Label color={statusColor}>{task.status}</Label>
+              }}
+            >
+              <Label color={statusColor}>
+                {columnData?.find((el) => el?.id === idColumn)?.name}
+              </Label>
 
-            <>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <span dangerouslySetInnerHTML={{ __html: task.text }} />
-
-                <IconButton
-                  disableRipple
+              <>
+                <Box
                   sx={{
-                    mt: -3,
-                    '&.MuiButtonBase-root:hover': {
-                      bgcolor: 'transparent',
-                    },
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
                   }}
                 >
-                  <Iconify icon="ep:more" onClick={handleClick} />
-                </IconButton>
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                }}
-              >
-                <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                  }}
-                >
-                  <MenuItem onClick={handleClose}>
-                    <Button
-                      startIcon={<Iconify icon="material-symbols:edit" />}
-                      onClick={handleDrawerOpen}
-                      sx={{
-                        bgcolor: 'transparent',
-                        color: '#aaa',
-                        ':hover': { bgcolor: 'transparent' },
-                      }}
-                    >
-                      Edit
-                    </Button>
-                  </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <Button
-                      sx={{
-                        bgcolor: 'transparent',
-                        color: '#aaa',
-                        ':hover': { bgcolor: 'transparent' },
-                      }}
-                      startIcon={<Iconify icon="material-symbols:delete" />}
-                      onClick={() => removeTask(task?.id)}
-                    >
-                      Delete
-                    </Button>
-                  </MenuItem>
-                </Menu>
-              </Box>
-            </>
+                  <span dangerouslySetInnerHTML={{ __html: task?.text }} />
 
-            {renderInfo}
-          </Paper>
-        )}
-      </Draggable>
+                  <IconButton
+                    disableRipple
+                    sx={{
+                      mt: -3,
+                      '&.MuiButtonBase-root:hover': {
+                        bgcolor: 'transparent',
+                      },
+                    }}
+                  >
+                    <Iconify icon="ep:more" onClick={handleClick} />
+                  </IconButton>
+                </Box>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                      'aria-labelledby': 'basic-button',
+                    }}
+                  >
+                    <MenuItem onClick={handleClose}>
+                      <Button
+                        startIcon={<Iconify icon="material-symbols:edit" />}
+                        onClick={handleDrawerOpen}
+                        sx={{
+                          bgcolor: 'transparent',
+                          color: '#aaa',
+                          ':hover': { bgcolor: 'transparent' },
+                        }}
+                      >
+                        Edit
+                      </Button>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <Button
+                        sx={{
+                          bgcolor: 'transparent',
+                          color: '#aaa',
+                          ':hover': { bgcolor: 'transparent' },
+                        }}
+                        startIcon={<Iconify icon="material-symbols:delete" />}
+                        onClick={() => removeTask(task?.id)}
+                      >
+                        Delete
+                      </Button>
+                    </MenuItem>
+                  </Menu>
+                </Box>
+              </>
+
+              {renderInfo}
+            </Paper>
+          )}
+        </Draggable>
+      )}
       <ClickAwayListener
         mouseEvent="onMouseDown"
         touchEvent="onTouchStart"
@@ -347,15 +331,15 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
               },
             },
           }}
-          open={openDrawer}
-          onClose={handleDrawerClose}
+          open={openCreateTaskDrawer || openDrawer}
+          onClose={openCreateTaskDrawer ? () => setOpenCreateTaskDrawer(false) : handleDrawerClose}
         >
           <KanbanDetailsToolbar
             liked={5}
             onLike={() => {}}
-            taskName={task.title}
-            onDelete={() => {}}
-            taskStatus={task.status}
+            taskName={task?.title}
+            onDelete={() => removeTask(task?.id)}
+            taskStatus={task?.status}
             onCloseDetails={onclose}
           />
 
@@ -387,23 +371,18 @@ const Task = ({ id, task, color, index, removeTask, editTask }) => {
               {renderPriority}
 
               {renderDescription}
-
-              {/* {renderAttachments} */}
             </Stack>
-
-            {/* {!!task.comments
-            .length && renderComments} */}
           </Scrollbar>
-          <Button
-            sx={{
-              margin: '10px',
-            }}
-            variant="outlined"
-            type="submit"
-            onClick={() => handleClose()}
-          >
-            Save
-          </Button>
+          {/* <Button
+              sx={{
+                margin: '10px',
+              }}
+              variant="outlined"
+              type="submit"
+              //     onClick={() => ()}
+            >
+              Save
+            </Button> */}
         </Drawer>
       </ClickAwayListener>
     </>
@@ -419,4 +398,11 @@ Task.propTypes = {
   index: PropTypes.number,
   removeTask: PropTypes.bool,
   editTask: PropTypes.bool,
+  isCreate: PropTypes.bool,
+  openCreateTaskDrawer: PropTypes.bool,
+  setOpenCreateTaskDrawer: PropTypes.func,
+  addTask: PropTypes.func,
+  idColumn: PropTypes.number,
+  getColumnId: PropTypes.number,
+  columnData: PropTypes.array,
 };

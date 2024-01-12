@@ -8,6 +8,7 @@ import Column from './Column';
 import KanModal from './Modal';
 import AddColumn from './AddColumn';
 import { columnsRawData } from './Data';
+import Task from './Task';
 
 const Kanban = () => {
   const [openColModal, setOpenColModal] = useState(false);
@@ -99,9 +100,10 @@ const Kanban = () => {
   const closeColModal = () => {
     setOpenColModal(false);
   };
-
+  const [getColumnId, setGetColumnId] = useState('');
   const addTask = (newTask) => {
     setModal(false);
+    console.log({ newTask });
     const updatedColumns = columns.map((column) => {
       if (column.id === newTask.idColumn && column.taskIds.length < 5) {
         column.taskIds.push(newTask);
@@ -153,6 +155,7 @@ const Kanban = () => {
   const addColumn = (newColumn) => {
     setColumns([...columns, newColumn]);
   };
+  const [openCreateTaskDrawer, setOpenCreateTaskDrawer] = useState(false);
 
   return (
     <Container
@@ -187,12 +190,21 @@ const Kanban = () => {
           Add New Column
         </Button>
         <Box>
-          {modal && (
-            <KanModal
-              openModal={open}
-              closeModal={closeModal}
+          {openCreateTaskDrawer && (
+            <Task
+              isCreate
+              key=""
+              id=""
+              task=""
+              color=""
+              index=""
+              removeTask={() => {}}
+              editTask={() => {}}
+              columnData={columns}
               addTask={addTask}
-              columnData={modal}
+              idColumn={getColumnId}
+              openCreateTaskDrawer={openCreateTaskDrawer}
+              setOpenCreateTaskDrawer={setOpenCreateTaskDrawer}
             />
           )}
 
@@ -208,11 +220,14 @@ const Kanban = () => {
             {columns.map((c) => (
               <Column
                 columnData={c}
+                columns={columns}
+                setGetColumnId={setGetColumnId}
                 key={c.name}
-                openModal={openModal}
+                openModal={openCreateTaskDrawer}
                 removeTask={removeTask}
                 removeColumn={removeColumn}
                 editTask={editTask}
+                setOpenCreateTaskDrawer={setOpenCreateTaskDrawer}
               />
             ))}
           </Stack>

@@ -7,7 +7,18 @@ import 'react-quill/dist/quill.snow.css';
 
 import useInputState from './useInputState';
 
-const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText, handleClose }) => {
+const EditForm = ({
+  color,
+  editTask,
+  taskId,
+  toggle,
+  startTitle,
+  startText,
+  handleClose,
+  addTask,
+  idColumn,
+  setOpenCreateTaskDrawer,
+}) => {
   const [text, setText] = useState(<p>{startText}</p>);
   useEffect(() => {
     setText(startText);
@@ -34,7 +45,9 @@ const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText, hand
         onSubmit={(e) => {
           e.preventDefault();
           editTask(taskId, title, text);
-          toggle();
+          addTask({ idColumn, title, text });
+          if (setOpenCreateTaskDrawer) setOpenCreateTaskDrawer(false);
+          handleClose();
         }}
         style={{
           display: 'flex',
@@ -74,17 +87,15 @@ const EditForm = ({ color, editTask, taskId, toggle, startTitle, startText, hand
           modules={{ toolbar: myToolbar }}
           onChange={onChange}
         />
-        {/* <Button
+        <Button
           sx={{
-            backgroundColor: 'transparent',
-            color: '#aaa',
-            ':hover': { bgcolor: 'transparent' },
+            margin: '10px',
           }}
+          variant="outlined"
           type="submit"
-          handleClose={handleClose}
         >
           Save
-        </Button> */}
+        </Button>
       </form>
     </Box>
   );
@@ -100,4 +111,7 @@ EditForm.propTypes = {
   startTitle: PropTypes.bool,
   startText: PropTypes.bool,
   handleClose: PropTypes.func,
+  addTask: PropTypes.func,
+  setOpenCreateTaskDrawer: PropTypes.func,
+  idColumn: PropTypes.number,
 };

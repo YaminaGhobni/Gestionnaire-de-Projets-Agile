@@ -10,7 +10,16 @@ import Task from './Task';
 import Scrollbar from '../scrollbar';
 import Iconify from '../iconify';
 
-const Column = ({ columnData, openModal, removeTask, removeColumn, editTask }) => {
+const Column = ({
+  columnData,
+  columns,
+  openModal,
+  removeTask,
+  removeColumn,
+  setGetColumnId,
+  editTask,
+  setOpenCreateTaskDrawer,
+}) => {
   const columnTitle = `${columnData.name}`;
 
   return (
@@ -108,10 +117,14 @@ const Column = ({ columnData, openModal, removeTask, removeColumn, editTask }) =
                   key={task.id}
                   id={task.id}
                   task={task}
+                  columnData={columns}
                   color={columnData.color}
+                  idColumn={columnData.id}
                   index={index}
                   removeTask={removeTask}
                   editTask={editTask}
+                  openCreateTaskDrawer={false}
+                  isCreate={false}
                 />
               ))}
               {provided.placeholder}
@@ -124,7 +137,10 @@ const Column = ({ columnData, openModal, removeTask, removeColumn, editTask }) =
                       backgroundColor: 'transparent',
                     },
                   }}
-                  onClick={() => openModal(columnData)}
+                  onClick={() => {
+                    setGetColumnId(columnData.id);
+                    setOpenCreateTaskDrawer(true);
+                  }}
                   disabled={columnData.taskIds.length >= 5}
                   startIcon={<Iconify icon="ic:baseline-plus" />}
                 >
@@ -146,4 +162,7 @@ Column.propTypes = {
   removeTask: PropTypes.bool,
   removeColumn: PropTypes.bool,
   editTask: PropTypes.bool,
+  setOpenCreateTaskDrawer: PropTypes.func,
+  setGetColumnId: PropTypes.func,
+  columns: PropTypes.array,
 };
