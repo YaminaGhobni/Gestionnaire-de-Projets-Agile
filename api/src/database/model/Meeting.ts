@@ -40,7 +40,6 @@ const schema = new Schema<IMeeting>(
         meetingDate: {
             type: Date,
             default: null,
-            select: false,
         },
         deletedAt: {
             type: Date,
