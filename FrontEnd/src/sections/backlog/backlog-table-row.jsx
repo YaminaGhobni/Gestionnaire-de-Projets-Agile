@@ -15,6 +15,7 @@ import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import ConfirmDialog from 'src/components/confirmDialog';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -30,6 +31,7 @@ export default function BacklogTableRow({
   priority,
 }) {
   const [open, setOpen] = useState(null);
+  const navigate = useNavigate();
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -123,7 +125,7 @@ export default function BacklogTableRow({
           sx: { width: 140 },
         }}
       >
-        <MenuItem onClick={handleCloseMenu}>
+        <MenuItem onClick={() => navigate('/backlog/new')}>
           <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
           Edit
         </MenuItem>
@@ -146,7 +148,7 @@ export default function BacklogTableRow({
         title="Delete"
         content="Are you sure want to delete?"
         action={
-          <Button variant="contained" color="error" >
+          <Button variant="contained" color="error">
             Delete
           </Button>
         }

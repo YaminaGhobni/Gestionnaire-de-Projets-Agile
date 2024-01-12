@@ -357,7 +357,7 @@
     "clsx" "^2.1.0"
     "prop-types" "^15.8.1"
 
-"@mui/material@^5.14.12", "@mui/material@^5.8.6", "@mui/material@>=5.10.11":
+"@mui/material@^5.14.12", "@mui/material@^5.4.1", "@mui/material@^5.8.6", "@mui/material@>=5.10.11":
   "integrity" "sha512-T/LGRAC+M0c+D3+y67eHwIN5bSje0TxbcJCWR0esNvU11T0QwrX3jedXItPNBwMupF2F5VWCDHBVLlFnN3+ABA=="
   "resolved" "https://registry.npmjs.org/@mui/material/-/material-5.15.4.tgz"
   "version" "5.15.4"
@@ -394,7 +394,7 @@
     "csstype" "^3.1.2"
     "prop-types" "^15.8.1"
 
-"@mui/system@^5.15.4", "@mui/system@^5.8.0":
+"@mui/system@^5.15.4", "@mui/system@^5.4.1", "@mui/system@^5.8.0":
   "integrity" "sha512-KCwkHajGBXPs2TK1HJjIyab4NDk0cZoBDYN/TTlXVo1qBAmCjY0vjqrlsjeoG+wrwwcezXMLs/e6OGP66fPCog=="
   "resolved" "https://registry.npmjs.org/@mui/system/-/system-5.15.4.tgz"
   "version" "5.15.4"
@@ -422,6 +422,17 @@
     "@types/prop-types" "^15.7.11"
     "prop-types" "^15.8.1"
     "react-is" "^18.2.0"
+
+"@mui/x-data-grid@^6.18.7":
+  "integrity" "sha512-K1A3pMUPxI4/Mt5A4vrK45fBBQK5rZvBVqRMrB5n8zX++Bj+WLWKvLTtfCmlriUtzuadr/Hl7Z+FDRXUJAx6qg=="
+  "resolved" "https://registry.npmjs.org/@mui/x-data-grid/-/x-data-grid-6.18.7.tgz"
+  "version" "6.18.7"
+  dependencies:
+    "@babel/runtime" "^7.23.2"
+    "@mui/utils" "^5.14.16"
+    "clsx" "^2.0.0"
+    "prop-types" "^15.8.1"
+    "reselect" "^4.1.8"
 
 "@mui/x-date-pickers@^6.19.0":
   "integrity" "sha512-/GccT+iFJTKjI6b9b0MWojyRKnizL/VYYAfPnR1q0wSVVXjYv7a1NK0uQlan4JbnovqoQCNVeTOCy/0bUJyD2Q=="
@@ -3034,7 +3045,7 @@
     "react-fast-compare" "^3.2.0"
     "shallowequal" "^1.1.0"
 
-"react-hook-form@^7.47.0":
+"react-hook-form@^7.49.3":
   "integrity" "sha512-foD6r3juidAT1cOZzpmD/gOKt7fRsDhXXZ0y28+Al1CHgX+AY1qIN9VSIIItXRq1dN68QrRwl1ORFlwjBaAqeQ=="
   "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.49.3.tgz"
   "version" "7.49.3"
@@ -3131,6 +3142,11 @@
     "call-bind" "^1.0.2"
     "define-properties" "^1.2.0"
     "set-function-name" "^2.0.0"
+
+"reselect@^4.1.8":
+  "integrity" "sha512-ab9EmR80F/zQTMNeneUr4cv+jSwPJgIlvEmVwLerwrWVbpLlBuls9XHzIeTFy4cegU2NHBp3va0LKOzU5qFEYQ=="
+  "resolved" "https://registry.npmjs.org/reselect/-/reselect-4.1.8.tgz"
+  "version" "4.1.8"
 
 "reselect@^5.0.1":
   "integrity" "sha512-aw7jcGLDpSgNDyWBQLv2cedml85qd95/iszJjN988zX1t7AVRJi19d9kto5+W7oCfQ94gyo40dVbT6g2k4/kXg=="

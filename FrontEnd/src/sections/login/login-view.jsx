@@ -54,9 +54,7 @@ export default function LoginView() {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="flex-end" sx={{ my: 3 }}>
-        <Link variant="subtitle2" underline="hover">
-          Forgot password?
-        </Link>
+
       </Stack>
 
       <LoadingButton
@@ -92,7 +90,7 @@ export default function LoginView() {
         >
           <Typography variant="h4">Sign in to Project Management</Typography>
 
-          <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
+          {/* <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
             Don’t have an account?
             <Link variant="subtitle2" sx={{ ml: 0.5 }}>
               Get started
@@ -135,8 +133,9 @@ export default function LoginView() {
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               OR
             </Typography>
-          </Divider>
+          </Divider> */}
 
+          <Divider sx={{ my: 3 }}></Divider>
           {renderForm}
         </Card>
       </Stack>
