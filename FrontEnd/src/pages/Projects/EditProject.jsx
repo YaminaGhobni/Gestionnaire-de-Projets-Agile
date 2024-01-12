@@ -18,7 +18,7 @@ const createNewProject = () => (
         Edit project
       </Typography>
 
-      <ProjectNewEditForm isEdit currentProject={{ name: 'xsx' }} />
+      <ProjectNewEditForm isEdit currentProject={{ name: 'Aufderhar - Shields' }} />
     </Container>
   </>
 );

@@ -67,6 +67,7 @@ export default function SprintsPage() {
 
   const handleViewRow = (id) => {
     navigate(`/sprints/view/${id}`);
+    // navigate(`/backlog/list`);
   };
 
   const handleSort = (event, id) => {
@@ -156,8 +157,8 @@ export default function SprintsPage() {
                   headLabel={[
                     { id: 'name', label: 'Name' },
                     { id: 'objectif', label: 'Objectif' },
-                    { id: 'status', label: 'Status' },
                     { id: 'type', label: 'Type' },
+                    { id: 'status', label: 'Status' },
                     { id: 'lead', label: 'Lead' },
                     { id: '' },
                   ]}

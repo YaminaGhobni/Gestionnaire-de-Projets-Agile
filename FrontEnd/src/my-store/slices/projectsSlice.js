@@ -10,7 +10,7 @@ const initialState = {
 export const getProjects = createAsyncThunk('project/getProjects', async () => {
   let data;
   try {
-    const response = await axiosInstance.get(`/projcts`);
+    const response = await axiosInstance.get(`/projects`);
     data = await response.data;
     if (response.status === 200) {
       return data;

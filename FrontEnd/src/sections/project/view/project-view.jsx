@@ -170,8 +170,8 @@ export default function ProjectsPage() {
                   headLabel={[
                     { id: 'name', label: 'Name' },
                     { id: 'objectif', label: 'Objectif' },
-                    { id: 'status', label: 'Status' },
                     { id: 'type', label: 'Type' },
+                    { id: 'status', label: 'Status' },
                     { id: 'lead', label: 'Lead' },
                     { id: '' },
                   ]}
