@@ -5,9 +5,9 @@ import authorization from "../../../auth/authorization";
 import {
   create,
   getAll,
-  deleteProject,
+  deleteOne,
   getOne
-} from "../../../controllers/project/projectController";
+} from "../../../controllers/sprint/sprintController";
 
 
 const router = express.Router();
@@ -20,14 +20,14 @@ router.post(
 );
 
 router.get(
-  "/",
+  "/projects/:projetId",
   authentication,
   authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN, RoleCode.USER]),
   getAll
 );
 
 router.get(
-  "/:projectId",
+  "/:sprintId",
   authentication,
   authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN, RoleCode.USER]),
   getOne
@@ -37,7 +37,7 @@ router.delete(
   "/:projectId",
   authentication,
   authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN, RoleCode.USER]),
-  deleteProject
+  deleteOne
 );
 
 export default router;

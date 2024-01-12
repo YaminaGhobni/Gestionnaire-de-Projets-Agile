@@ -20,7 +20,7 @@ export enum Status {
   Done = 'Done',
 }
 
-interface ITask extends Document {
+export default interface ITask extends Document {
   startTime?: Date;
   endTime?: Date;
   priority?: Priority;
@@ -60,7 +60,7 @@ const taskSchema = new Schema<ITask>(
     versionKey: false,
   }
 );
-preFindHook(taskSchema,['assignedUsers']);
+preFindHook(taskSchema, ['assignedUsers']);
 taskSchema.plugin(mongoosePagination);
 
 export const TaskModel = model<ITask, Pagination<ITask>>(
