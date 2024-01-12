@@ -35,6 +35,10 @@ export default function Router() {
           path: 'projects/new',
           element: <CreateProject />,
         },
+        {
+          path: 'projects/edit/:name',
+          element: <CreateProject />,
+        },
       ],
     },
     {
