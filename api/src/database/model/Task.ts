@@ -60,7 +60,7 @@ const taskSchema = new Schema<ITask>(
     versionKey: false,
   }
 );
-preFindHook(taskSchema);
+preFindHook(taskSchema,['assignedUsers']);
 taskSchema.plugin(mongoosePagination);
 
 export const TaskModel = model<ITask, Pagination<ITask>>(
