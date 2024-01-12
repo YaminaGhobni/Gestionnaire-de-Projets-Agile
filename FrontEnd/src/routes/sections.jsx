@@ -2,6 +2,8 @@ import { lazy, Suspense } from 'react';
 import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
+import MeetingPage from 'src/pages/meeting';
+import MeetingForm from 'src/pages/meeting/meetingForm';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 
@@ -25,9 +27,12 @@ export default function Router() {
       children: [
         { element: <IndexPage />, index: true },
         { path: 'user', element: <UserPage /> },
-       
+        { path: 'meeting', element: <MeetingPage /> },
+        { path: 'meeting/create', element: <MeetingForm /> },
+        { path: 'meeting/:id/edit', element: <MeetingForm /> },
       ],
     },
+
     {
       path: 'login',
       element: <LoginPage />,
