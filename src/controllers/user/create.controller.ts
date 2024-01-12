@@ -8,9 +8,7 @@ import { BadRequestError } from '../../core/ApiError';
 
 export const createUser = asyncHandler(async (req: ProtectedRequest, res) => {
   const { body } = req;
-  let roleUser = await RoleRepo.findByCode(RoleCode.ADMIN);
   let role: any;
-  role = roleUser;
 
   let user = await UserRepo.getOneByObj({ email: req.body.email });
   if (user) throw new BadRequestError('User already registered');

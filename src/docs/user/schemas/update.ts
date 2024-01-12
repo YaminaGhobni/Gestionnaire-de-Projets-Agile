@@ -17,6 +17,4 @@
  *           type: string
  *         phoneNumber:
  *           type: string
- *         password:
- *           type: string
  */

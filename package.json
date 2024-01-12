@@ -8,7 +8,7 @@
     "check": "ts-node-dev src/helpers/checks.ts",
     "dev": "ts-node-dev --watch 'src/**/*.ts' -r dotenv/config src/server.ts",
     "serve": "node -r dotenv/config build/server.js",
-    "build": "npm run clean && npm run build-ts",
+    "build": "npm run clean && npm run build-ts && npm run copyMySpecialFiles",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
     "watch-node": "nodemon -r dotenv/config build/server.js",
     "clean": "rimraf ./build",
@@ -19,7 +19,8 @@
     "test": "NODE_ENV=test jest __tests__/index.test.ts --runInBand --detectOpenHandles --watchAll --passWithNoTests",
     "clearTestCache": "jest clearCache --passWithNoTests",
     "coverage": "NODE_ENV=test jest __tests__/index.test.ts --coverage --runInBand --detectOpenHandles --watchAll --passWithNoTests",
-    "seed": "ts-node-dev -r dotenv/config src/helpers/seeder/index.ts"
+    "seed": "ts-node-dev -r dotenv/config src/helpers/seeder/index.ts",
+    "copyMySpecialFiles": "copyfiles --error --flat ./src/helpers/emails/templates/*.ejs build/helpers/emails/templates"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "bcryptjs": "^2.4.3",
     "cli-color": "^2.0.3",
     "cookie-parser": "^1.4.5",
+    "copyfiles": "^2.4.1",
     "cors": "^2.8.5",
     "ejs": "^3.1.9",
     "express": "^4.17.1",
