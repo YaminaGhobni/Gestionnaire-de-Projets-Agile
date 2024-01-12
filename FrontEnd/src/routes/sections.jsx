@@ -18,7 +18,7 @@ export const CreateSprint = lazy(() => import('src/pages/Sprints/CreateNewSprint
 export const ViewSprint = lazy(() => import('src/pages/Sprints/ViewSprint'));
 
 import MeetingPage from 'src/pages/meeting';
-import MeetingForm from 'src/pages/meeting/meetingForm';
+import MeetingForm from 'src/pages/meeting/MeetingForm';
 // ----------------------------------------------------------------------
 
 export default function Router() {
