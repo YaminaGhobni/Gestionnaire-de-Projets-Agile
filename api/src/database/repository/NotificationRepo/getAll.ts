@@ -18,8 +18,7 @@ const findAll = async (
     .filter()
     .sort()
     .limitFields()
-    .search([])
-    .recherche('id');
+    .search([]);
 
   const options = {
     query: features.query,
