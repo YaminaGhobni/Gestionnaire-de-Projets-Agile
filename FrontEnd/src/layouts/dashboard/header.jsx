@@ -1,23 +1,23 @@
 import PropTypes from 'prop-types';
 
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 
-import { bgBlur } from 'src/theme/css';
 
 import Iconify from 'src/components/iconify';
 
-import Searchbar from './common/searchbar';
-import { NAV, HEADER } from './config-layout';
+import { SettingsDrawer } from 'src/components/settings';
 import AccountPopover from './common/account-popover';
 import LanguagePopover from './common/language-popover';
 import NotificationsPopover from './common/notifications-popover';
+import Searchbar from './common/searchbar';
+import { HEADER, NAV } from './config-layout';
 
 // ----------------------------------------------------------------------
 
@@ -42,6 +42,7 @@ export default function Header({ onOpenNav }) {
         <LanguagePopover />
         <NotificationsPopover />
         <AccountPopover />
+        <SettingsDrawer />
       </Stack>
     </>
   );
@@ -51,10 +52,7 @@ export default function Header({ onOpenNav }) {
       sx={{
         boxShadow: 'none',
         height: HEADER.H_MOBILE,
-        zIndex: theme.zIndex.appBar + 1,
-        ...bgBlur({
-          color: theme.palette.background.default,
-        }),
+        backgroundColor: 'transparent!important',
         transition: theme.transitions.create(['height'], {
           duration: theme.transitions.duration.shorter,
         }),
