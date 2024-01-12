@@ -19,6 +19,11 @@ const navConfig = [
   },
   { title: 'projects', path: '/projects', icon: icon('ic_project') },
   {
+    title: 'meeting management',
+    path: '/meeting',
+    icon: icon('ic_user'),
+  },
+  {
     title: 'login',
     path: '/login',
     icon: icon('ic_lock'),
