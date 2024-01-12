@@ -1,0 +1,35 @@
+NODE_ENV=development
+PORT=3000
+BASE_API_ENDPOINT=/api/v1
+BASE_URL=http://localhost:3000/api/v1
+API_PREFIX=/api/v1
+CLIENT_BASE_URL=http://localhost:5173
+CORS_URL=*
+
+# Databse
+DB_URI=mongodb+srv://task-manager:1234Five@task-manager.tllrg2b.mongodb.net/?retryWrites=true&w=majority
+DB_NAME=starter-db
+DB_NAME_TEST=starter-db-test
+DB_HOST=starterdb
+DB_PORT=27017
+LOG_DIR='./logs'
+
+# Token Info
+ACCESS_TOKEN_VALIDITY_DAYS=30
+REFRESH_TOKEN_VALIDITY_DAYS=120
+TOKEN_ISSUER=softylines.com
+TOKEN_AUDIENCE=softylines.com
+
+# SUPER ADMINS
+SUPER_ADMIN_NAME=super
+SUPER_ADMIN_EMAIL=super@super.com
+SUPER_ADMIN_PASS=super123
+
+# SUPER ADMINS
+ADMIN_NAME=admin
+ADMIN_EMAIL=admin@admin.com
+ADMIN_PASS=admin123
+
+#Socket
+SOCKET_PORT=4000
+
