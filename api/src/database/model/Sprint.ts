@@ -8,6 +8,7 @@ export default interface ISprint extends Document {
   name: string;
   lead: IUser;
   members: IUser[];
+  status: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -15,6 +16,10 @@ export default interface ISprint extends Document {
 const schema = new Schema<ISprint>(
   {
     name: {
+      type: Schema.Types.String,
+      required: true,
+    },
+    status: {
       type: Schema.Types.String,
       required: true,
     },
