@@ -18,7 +18,7 @@ import ConfirmDialog from 'src/components/confirm-dialog';
 
 // ----------------------------------------------------------------------
 
-export default function ProjectTableRow({
+export default function SprintTableRow({
   name,
   avatarUrl,
   objectif,
@@ -123,7 +123,7 @@ export default function ProjectTableRow({
   );
 }
 
-ProjectTableRow.propTypes = {
+SprintTableRow.propTypes = {
   avatarUrl: PropTypes.any,
   objectif: PropTypes.any,
   lead: PropTypes.any,

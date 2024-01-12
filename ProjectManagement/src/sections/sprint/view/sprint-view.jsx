@@ -18,14 +18,14 @@ import Scrollbar from 'src/components/scrollbar';
 
 import TableNoData from '../table-no-data';
 import TableEmptyRows from '../table-empty-rows';
-import ProjectTableRow from '../project-table-row';
-import ProjectTableHead from '../project-table-head';
-import ProjectTableToolbar from '../project-table-toolbar';
+import SprintTableRow from '../sprint-table-row';
+import SprintTableHead from '../sprint-table-head';
+import SprintTableToolbar from '../sprint-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
 
 // ----------------------------------------------------------------------
 
-export default function ProjectsPage() {
+export default function SprintsPage() {
   const navigate = useNavigate();
 
   const [page, setPage] = useState(0);
@@ -62,11 +62,11 @@ export default function ProjectsPage() {
   };
 
   const handleEditRow = (id) => {
-    navigate(`/projects/edit/${id}`);
+    navigate(`/sprints/edit/${id}`);
   };
 
   const handleViewRow = (id) => {
-    navigate(`/projects/view/${id}`);
+    navigate(`/sprints/view/${id}`);
   };
 
   const handleSort = (event, id) => {
@@ -124,20 +124,20 @@ export default function ProjectsPage() {
     <>
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4">Projects</Typography>
+          <Typography variant="h4">Sprints</Typography>
 
           <Button
             component={RouterLink}
-            to="/projects/new"
+            to="/sprints/new"
             variant="contained"
             startIcon={<Iconify icon="eva:plus-fill" />}
           >
-            New Project
+            New Sprint
           </Button>
         </Stack>
 
         <Card>
-          <ProjectTableToolbar
+          <SprintTableToolbar
             numSelected={selected.length}
             filterName={filterName}
             onFilterName={handleFilterByName}
@@ -146,7 +146,7 @@ export default function ProjectsPage() {
           <Scrollbar>
             <TableContainer sx={{ overflow: 'unset' }}>
               <Table sx={{ minWidth: 800 }}>
-                <ProjectTableHead
+                <SprintTableHead
                   order={order}
                   orderBy={orderBy}
                   rowCount={projects.length}
@@ -166,7 +166,7 @@ export default function ProjectsPage() {
                   {dataFiltered
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
-                      <ProjectTableRow
+                      <SprintTableRow
                         key={row.id}
                         name={row.name}
                         objectif={row.objectif}
