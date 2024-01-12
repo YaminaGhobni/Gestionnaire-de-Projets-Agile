@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
@@ -22,11 +23,15 @@ import ProjectTableRow from '../project-table-row';
 import ProjectTableHead from '../project-table-head';
 import ProjectTableToolbar from '../project-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
+import { getProjects } from 'src/my-store/slices/projectsSlice';
 
 // ----------------------------------------------------------------------
 
 export default function ProjectsPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // const { projects } = useSelector((state) => state.projects);
 
   const [page, setPage] = useState(0);
 
@@ -46,6 +51,9 @@ export default function ProjectsPage() {
     comparator: getComparator(order, orderBy),
     filterName,
   });
+  useEffect(() => {
+    dispatch(getProjects());
+  }, [dispatch]);
 
   const dataInPage = dataFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 

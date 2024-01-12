@@ -3,18 +3,14 @@ import { Helmet } from 'react-helmet-async';
 
 import { ProjectView } from '../../sections/project/view';
 
-const Projects = () => {
-  const x = 1;
-  return (
-    <>
-      <Helmet>
-        <title> Projects </title>
-      </Helmet>
-      {x}
+const Projects = () => (
+  <>
+    <Helmet>
+      <title> Projects </title>
+    </Helmet>
 
-      <ProjectView />
-    </>
-  );
-};
+    <ProjectView />
+  </>
+);
 
 export default Projects;
