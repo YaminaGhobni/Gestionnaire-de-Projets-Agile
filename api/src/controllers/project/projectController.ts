@@ -30,10 +30,7 @@ export const getAll = asyncHandler(
 export const getOne = asyncHandler(
   async (req: ProtectedRequest, res: Response) => {
     const { projectId } = req.params;
-
     const project = await ProjectModel.findOne({ _id: projectId });
-    console.log(projectId);
-    console.log(project);
     
     if (!project) {
       throw new NotFoundError("Project not found");
