@@ -37,7 +37,7 @@ router.delete(
   "/:projectId",
   authentication,
   authorization([RoleCode.ADMIN, RoleCode.SUPERADMIN, RoleCode.USER]),
-  create
+  deleteProject
 );
 
 export default router;

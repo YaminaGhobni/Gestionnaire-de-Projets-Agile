@@ -1,4 +1,5 @@
 import { Schema, model, Document } from "mongoose";
+import IProject from "./Project";
 import IUser from "./User";
 
 export const DOCUMENT_NAME = "Sprint";
@@ -9,6 +10,7 @@ export default interface ISprint extends Document {
   lead: IUser;
   members: IUser[];
   status: string;
+  project: IProject;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -28,6 +30,11 @@ const schema = new Schema<ISprint>(
       ref: "User",
       required: true,
     },
+    project: {
+      type: Schema.Types.ObjectId,
+      ref: "Project",
+      required: true,
+    },
     members: [
       {
         type: Schema.Types.ObjectId,
@@ -35,16 +42,6 @@ const schema = new Schema<ISprint>(
         required: true,
       },
     ],
-    createdAt: {
-      type: Date,
-      required: true,
-      select: false,
-    },
-    updatedAt: {
-      type: Date,
-      required: true,
-      select: false,
-    },
   },
   {
     timestamps: true,
