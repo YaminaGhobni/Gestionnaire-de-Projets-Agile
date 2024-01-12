@@ -103,7 +103,7 @@ const Kanban = () => {
   const [getColumnId, setGetColumnId] = useState('');
   const addTask = (newTask) => {
     setModal(false);
-    console.log({ newTask });
+   
     const updatedColumns = columns.map((column) => {
       if (column.id === newTask.idColumn && column.taskIds.length < 5) {
         column.taskIds.push(newTask);
