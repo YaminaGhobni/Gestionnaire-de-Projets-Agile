@@ -34,6 +34,7 @@ export default function Router() {
           { element: <Navigate to="/backlog/list" replace />, index: true },
           { path: 'list', element:  <BacklogPage /> },
           { path: 'new', element: <BacklogCreatePage /> },
+          { path: 'edit', element: <BacklogCreatePage /> },
         ],
       },
       ],

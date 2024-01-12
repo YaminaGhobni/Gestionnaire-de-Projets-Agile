@@ -13,6 +13,8 @@ import IconButton from '@mui/material/IconButton';
 
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
+import ConfirmDialog from 'src/components/confirmDialog';
+import { Button } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -25,9 +27,10 @@ export default function BacklogTableRow({
   status,
   handleClick,
   assigned,
-  priority
+  priority,
 }) {
   const [open, setOpen] = useState(null);
+
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
   };
@@ -61,6 +64,17 @@ export default function BacklogTableRow({
         return 'default';
     }
   };
+  const [openConfirm, setOpenConfirm] = useState(false);
+
+  const [openPopover, setOpenPopover] = useState(null);
+
+  const handleOpenConfirm = () => {
+    setOpenConfirm(true);
+  };
+
+  const handleCloseConfirm = () => {
+    setOpenConfirm(false);
+  };
 
   return (
     <>
@@ -78,7 +92,7 @@ export default function BacklogTableRow({
         <TableCell>
           <Label color={getStatusColor()}>{status}</Label>
         </TableCell>
-     
+
         <TableCell component="th" scope="row" padding="none">
           <Stack direction="row" alignItems="center" spacing={2}>
             <Avatar alt={assigned} src={avatarUrl} />
@@ -114,15 +128,33 @@ export default function BacklogTableRow({
           Edit
         </MenuItem>
 
-        <MenuItem onClick={handleCloseMenu} sx={{ color: 'error.main' }}>
+        <MenuItem
+          sx={{ color: 'error.main' }}
+          onClick={() => {
+            handleOpenConfirm();
+            handleClosePopover();
+          }}
+        >
           <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
           Delete
         </MenuItem>
       </Popover>
+
+      <ConfirmDialog
+        open={openConfirm}
+        onClose={handleCloseConfirm}
+        title="Delete"
+        content="Are you sure want to delete?"
+        action={
+          <Button variant="contained" color="error" >
+            Delete
+          </Button>
+        }
+      />
     </>
   );
 }
-BacklogTableRow .propTypes = {
+BacklogTableRow.propTypes = {
   avatarUrl: PropTypes.any,
   company: PropTypes.any,
   handleClick: PropTypes.func,
